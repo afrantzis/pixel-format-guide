@@ -48,10 +48,10 @@ def main(argv):
     parser_describe.add_argument("format")
     parser_describe.set_defaults(func=describe)
 
-    parser_describe = subparsers.add_parser(
+    parser_document = subparsers.add_parser(
         "document", description="Display pixel format family documentation")
-    parser_describe.add_argument("family")
-    parser_describe.set_defaults(func=document)
+    parser_document.add_argument("family")
+    parser_document.set_defaults(func=document)
 
     args = parser.parse_args(argv[1:])
 
