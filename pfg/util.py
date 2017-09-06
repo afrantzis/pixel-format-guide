@@ -45,6 +45,13 @@ def parse_components_with_separate_sizes(component_str, default_size=8):
 
     return ret
 
+def native_to_memory_be(native):
+    return split_every_eight_chars(native)
+
+def native_to_memory_le(native):
+    byte_list = split_every_eight_chars(native)
+    return [b for b in reversed(byte_list)]
+
 def read_documentation(docfile):
     here_path = os.path.realpath(os.path.dirname(__file__))
     doc_path = os.path.join(here_path, "..", "docs", docfile)

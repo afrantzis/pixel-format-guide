@@ -5,8 +5,7 @@ import re
 wl_drm_re = re.compile("WL_DRM_FORMAT_(?P<components>.*)")
 
 def rgba_components_to_memory(components):
-    byte_list = util.split_every_eight_chars(components)
-    return [b for b in reversed(byte_list)]
+    return util.native_to_memory_le(components)
 
 def yuv_components_to_memory(components):
     return util.split_every_eight_chars(components)
