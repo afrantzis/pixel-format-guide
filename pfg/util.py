@@ -1,6 +1,6 @@
 import os
 
-def split_every_eight_chars(s):
+def split_bytes(s):
     return [s[i:i+8] for i in range(0, len(s), 8)]
 
 # Parse component strings of the form: R8G8B8A8
@@ -46,10 +46,10 @@ def parse_components_with_separate_sizes(component_str, default_size=8):
     return ret
 
 def native_to_memory_be(native):
-    return split_every_eight_chars(native)
+    return split_bytes(native)
 
 def native_to_memory_le(native):
-    byte_list = split_every_eight_chars(native)
+    byte_list = split_bytes(native)
     return [b for b in reversed(byte_list)]
 
 def read_documentation(docfile):

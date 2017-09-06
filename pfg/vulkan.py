@@ -6,7 +6,7 @@ r = "UNORM|SNORM|USCALED|SSCALED|UINT|SINT|SRGB|SFLOAT|UFLOAT"
 vk_re = re.compile("VK_FORMAT_(?P<components>.*)_(" + r + ")(?P<pack>_PACK\d+)?")
 
 def components_to_memory(components):
-    return util.split_every_eight_chars(components)
+    return util.split_bytes(components)
 
 def describe(format_str):
     match = vk_re.match(format_str)

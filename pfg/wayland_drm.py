@@ -8,7 +8,7 @@ def rgba_components_to_memory(components):
     return util.native_to_memory_le(components)
 
 def yuv_components_to_memory(components):
-    return util.split_every_eight_chars(components)
+    return util.split_bytes(components)
 
 def describe(format_str):
     match = wl_drm_re.match(format_str)
