@@ -41,6 +41,7 @@ def document(args):
 
 def main(argv):
     parser = argparse.ArgumentParser()
+    parser.set_defaults(func=lambda x: parser.print_help())
     subparsers = parser.add_subparsers()
 
     parser_describe = subparsers.add_parser(
