@@ -16,6 +16,18 @@ Run with:
 
 Examples:
 
+    $ python3 -m pfg describe GL_RGBA+GL_UNSIGNED_INT_2_10_10_10_REV
+    Format:               GL_RGBA+GL_UNSIGNED_INT_2_10_10_10_REV
+    Described as:         Native 32-bit type
+    Native type:          M                              L
+                          AABBBBBBBBBBGGGGGGGGGGRRRRRRRRRR
+    Memory little-endian: 0        1        2        3
+                          M      L M      L M      L M      L
+                          RRRRRRRR GGGGGGRR BBBBGGGG AABBBBBB
+    Memory big-endian:    0        1        2        3
+                          M      L M      L M      L M      L
+                          AABBBBBB BBBBGGGG GGGGGGRR RRRRRRRR
+
     $ python3 -m pfg describe VK_FORMAT_A2R10G10B10_UNORM_PACK32
     Format:               VK_FORMAT_A2R10G10B10_UNORM_PACK32
     Described as:         Native 32-bit type

@@ -1,7 +1,9 @@
+from . import opengl
 from . import vulkan
 from . import wayland_drm
 
 families = [
+    opengl,
     vulkan,
     wayland_drm
     ]

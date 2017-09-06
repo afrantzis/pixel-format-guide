@@ -47,5 +47,6 @@ help you understand the conventions used by the various pixel format families.
 
 # Pixel format descriptions
 
+* [OpenGL pixel formats](opengl.md)
 * [Vulkan pixel formats](vulkan.md)
 * [Wayland-drm pixel formats](wayland_drm.md)
