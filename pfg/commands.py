@@ -19,11 +19,13 @@
 #   Alexandros Frantzis <alexandros.frantzis@collabora.com>
 
 from . import opengl
+from . import sdl2
 from . import vulkan
 from . import wayland_drm
 
 families = [
     opengl,
+    sdl2,
     vulkan,
     wayland_drm
     ]
