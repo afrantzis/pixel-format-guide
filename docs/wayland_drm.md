@@ -28,11 +28,11 @@ There are a few categories of wayland-drm formats:
     the leftmost component at the highest address and the rightmost at the
     lowest addres.
 
-    Example: `WL_DRM_FORMAT_ARGB8888`
+    **Example: `WL_DRM_FORMAT_ARGB8888`**
 
     Always stored as B, G, R, A in memory (B at lowest address, A at highest)
 
-    Example: `VK_FORMAT_RGB565`
+    **Example: `WL_DRM_FORMAT_RGB565`**
 
     Always stored in memory as:
 
@@ -52,7 +52,7 @@ There are a few categories of wayland-drm formats:
     in memory with the leftmost component at the lowest address and the
     rightmost at the highest.
 
-    Example: `WL_DRM_FORMAT_YUYV`
+    **Example: `WL_DRM_FORMAT_YUYV`**
 
     Always stored as Y₀, U, Y₁, V in memory (Y₀ at lowest address, V at the highest)
 

@@ -19,12 +19,12 @@ There are broadly three categories of Vulkan formats:
     rightmost component at the highest address. When a component consists of
     multiple bytes, the order of the bytes depends on system endianness.
 
-    Example: `VK_FORMAT_R8G8B8A8_SRGB`
+    **Example: `VK_FORMAT_R8G8B8A8_SRGB`**
 
     Always stored as R, G, B, A in memory
         (R at the lowest address, A at the highest)
 
-    Example: `VK_FORMAT_R16G16_UNORM`
+    **Example: `VK_FORMAT_R16G16_UNORM`**
 
     Stored as R₀, R₁, G₀, G₁ in memory on little-endian systems
         (R₀ at lowest address, G₁ at highest)
@@ -43,7 +43,7 @@ There are broadly three categories of Vulkan formats:
 
     The memory layout of packed formats depends on system endianness.
 
-    Example: `VK_FORMAT_R5G6B5_UNORM_PACK16`
+    **Example: `VK_FORMAT_R5G6B5_UNORM_PACK16`**
 
     Stored in memory in the same way a 16-bit native type would be stored on
     the system. R is in bits 11-15 of the native type, G in bits 5-10 and B in
