@@ -20,12 +20,14 @@
 
 from . import opengl
 from . import sdl2
+from . import v4l2
 from . import vulkan
 from . import wayland_drm
 
 families = [
     opengl,
     sdl2,
+    v4l2,
     vulkan,
     wayland_drm
     ]
