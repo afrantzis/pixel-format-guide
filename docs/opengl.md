@@ -115,41 +115,42 @@ On big-endian systems it is stored as:
 
 This combination represents the 32-bit value:
 
-    M                              L
-    BBBBBBBBBBGGGGGGGGGGRRRRRRRRRRAA
+    M                                                              L
+    B₉B₈B₇B₆B₅B₄B₃B₂B₁B₀G₉G₈G₇G₆G₅G₄G₃G₂G₁G₀R₉R₈R₇R₆R₅R₄R₃R₂R₁R₀A₁A₀
 
 The memory layout of this combination depends on system endianness. On
 little-endian systems it is stored as:
 
-    0        1        2        3
-    M      L M      L M      L M      L
-    RRRRRRAA GGGGRRRR BBGGGGGG BBBBBBBB
+    0                1                2                3
+    M              L M              L M              L M              L
+    R₅R₄R₃R₂R₁R₀A₁A₀ G₃G₂G₁G₀R₉R₈R₇R₆ B₁B₀G₉G₈G₇G₆G₅G₄ B₉B₈B₇B₆B₅B₄B₃B₂
 
 On big-endian systems it is stored as:
 
-    0        1        2        3
-    M      L M      L M      L M      L
-    BBBBBBBB BBGGGGGG GGGGRRRR RRRRRRAA
+    0                1                2                3
+    M              L M              L M              L M              L
+    B₉B₈B₇B₆B₅B₄B₃B₂ B₁B₀G₉G₈G₇G₆G₅G₄ G₃G₂G₁G₀R₉R₈R₇R₆ R₅R₄R₃R₂R₁R₀A₁A₀
 
 **Example: `GL_RGBA` with `GL_UNSIGNED_INT_2_10_10_10_REV`**
 
 This combination represents the 32-bit value:
 
-    M                              L
-    AABBBBBBBBBBGGGGGGGGGGRRRRRRRRRR
+    M                                                              L
+    A₁A₀B₉B₈B₇B₆B₅B₄B₃B₂B₁B₀G₉G₈G₇G₆G₅G₄G₃G₂G₁G₀R₉R₈R₇R₆R₅R₄R₃R₂R₁R₀
 
 The memory layout of this combination depends on system endianness. On
 little-endian systems it is stored as:
 
-    0        1        2        3
-    M      L M      L M      L M      L
-    RRRRRRRR GGGGGGRR BBBBGGGG AABBBBBB
+    0                1                2                3
+    M              L M              L M              L M              L
+    R₇R₆R₅R₄R₃R₂R₁R₀ G₅G₄G₃G₂G₁G₀R₉R₈ B₃B₂B₁B₀G₉G₈G₇G₆ A₁A₀B₉B₈B₇B₆B₅B₄
+
 
 On big-endian systems it is stored as:
 
-    0        1        2        3
-    M      L M      L M      L M      L
-    AABBBBBB BBBBGGGG GGGGGGRR RRRRRRRR
+    0                1                2                3
+    M              L M              L M              L M              L
+    A₁A₀B₉B₈B₇B₆B₅B₄ B₃B₂B₁B₀G₉G₈G₇G₆ G₅G₄G₃G₂G₁G₀R₉R₈ R₇R₆R₅R₄R₃R₂R₁R₀
 
 **Example: `GL_RGB` with `GL_UNSIGNED_INT_8_8_8_8`**
 

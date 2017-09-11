@@ -36,11 +36,9 @@ There are a few categories of wayland-drm formats:
 
     Always stored in memory as:
 
-        Byte:    0        1
-        MSB/LSB: M      L M      L
-                 GGGBBBBB RRRRRGGG
-
-    (each R,G,B representing a bit)
+        0                1
+        M              L M              L
+        G₂G₁G₀B₄B₃B₂B₁B₀ R₄R₃R₂R₁R₀G₅G₄G₃
 
 * Packed Y'CbCr: `WL_DRM_FORMAT_{yuva-componenent-format}`
 

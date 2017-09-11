@@ -26,15 +26,15 @@ The pixel is represented by a 16-bit value, with R in bits 11-15, G in bits
 
 On little-endian systems the pixel is stored in memory as:
 
-    0        1
-    M      L M      L
-    GGGBBBBB RRRRRGGG
+    0                1
+    M              L M              L
+    G₂G₁G₀B₄B₃B₂B₁B₀ R₄R₃R₂R₁R₀G₅G₄G₃
 
 On big-endian systems the pixel is stored in memory as:
 
-    0        1
-    M      L M      L
-    RRRRRGGG GGGBBBBB
+    0                1
+    M              L M              L
+    R₄R₃R₂R₁R₀G₅G₄G₃ G₂G₁G₀B₄B₃B₂B₁B₀
 
 **Example: `SDL_PIXELTYPE_ARGB8888`**
 
