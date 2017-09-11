@@ -20,6 +20,7 @@
 
 import unittest
 import pfg
+from pfg import util
 
 class TestCase(unittest.TestCase):
     def assertFormatMatches(self, format_str, native, memory_le, memory_be):
@@ -32,3 +33,12 @@ class TestCase(unittest.TestCase):
         documentation = pfg.document(family)
         self.assertIsNotNone(documentation)
         self.assertNotEqual("", documentation)
+
+def R(m,l): return util.component_bits("R", m, l)
+def G(m,l): return util.component_bits("G", m, l)
+def B(m,l): return util.component_bits("B", m, l)
+def A(m,l): return util.component_bits("A", m, l)
+def X(m,l): return util.component_bits("X", m, l)
+def Y(m,l): return util.component_bits("Y", m, l)
+def U(m,l): return util.component_bits("U", m, l)
+def V(m,l): return util.component_bits("V", m, l)

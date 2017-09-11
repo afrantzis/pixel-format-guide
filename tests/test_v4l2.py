@@ -18,72 +18,72 @@
 # Authors:
 #   Alexandros Frantzis <alexandros.frantzis@collabora.com>
 
-from . import pfgtest
+from .pfgtest import TestCase, R, G, B, A, X
 
-class V4L2Test(pfgtest.TestCase):
+class V4L2Test(TestCase):
     def test_packed_formats_le(self):
         self.assertFormatMatches(
             format_str = "V4L2_PIX_FMT_RGB332",
             native = None,
-            memory_le = ["R" * 3 + "G" * 3 + "B" * 2],
-            memory_be = ["R" * 3 + "G" * 3 + "B" * 2])
+            memory_le = [R(2, 0) + G(2, 0) + B(1, 0)],
+            memory_be = [R(2, 0) + G(2, 0) + B(1, 0)])
 
         self.assertFormatMatches(
             format_str = "V4L2_PIX_FMT_RGB565",
             native = None,
-            memory_le = ["G" * 3 + "B" * 5, "R" * 5 + "G" * 3],
-            memory_be = ["G" * 3 + "B" * 5, "R" * 5 + "G" * 3])
+            memory_le = [G(2, 0) + B(4, 0), R(4, 0) + G(5, 3)],
+            memory_be = [G(2, 0) + B(4, 0), R(4, 0) + G(5, 3)])
 
         self.assertFormatMatches(
             format_str = "V4L2_PIX_FMT_XRGB555",
             native = None,
-            memory_le = ["G" * 3 + "B" * 5, "X" + "R" * 5 + "G" * 2],
-            memory_be = ["G" * 3 + "B" * 5, "X" + "R" * 5 + "G" * 2])
+            memory_le = [G(2, 0) + B(4, 0), X(0, 0) + R(4, 0) + G(4, 3)],
+            memory_be = [G(2, 0) + B(4, 0), X(0, 0) + R(4, 0) + G(4, 3)])
 
     def test_packed_formats_be(self):
         self.assertFormatMatches(
             format_str = "V4L2_PIX_FMT_RGB565X",
             native = None,
-            memory_le = ["R" * 5 + "G" * 3, "G" * 3 + "B" * 5],
-            memory_be = ["R" * 5 + "G" * 3, "G" * 3 + "B" * 5])
+            memory_le = [R(4, 0) + G(5, 3), G(2, 0) + B(4, 0)],
+            memory_be = [R(4, 0) + G(5, 3), G(2, 0) + B(4, 0)])
 
         self.assertFormatMatches(
             format_str = "V4L2_PIX_FMT_XRGB555X",
             native = None,
-            memory_le = ["X" + "R" * 5 + "G" * 2, "G" * 3 + "B" * 5],
-            memory_be = ["X" + "R" * 5 + "G" * 2, "G" * 3 + "B" * 5])
+            memory_le = [X(0, 0) + R(4, 0) + G(4, 3), G(2, 0) + B(4, 0)],
+            memory_be = [X(0, 0) + R(4, 0) + G(4, 3), G(2, 0) + B(4, 0)])
 
     def test_array_formats(self):
         self.assertFormatMatches(
             format_str = "V4L2_PIX_FMT_BGR24",
             native = None,
-            memory_le = ["B" * 8, "G" * 8, "R" * 8],
-            memory_be = ["B" * 8, "G" * 8, "R" * 8])
+            memory_le = [B(7, 0), G(7, 0), R(7, 0)],
+            memory_be = [B(7, 0), G(7, 0), R(7, 0)])
 
         self.assertFormatMatches(
             format_str = "V4L2_PIX_FMT_ARGB32",
             native = None,
-            memory_le = ["A" * 8, "R" * 8, "G" * 8, "B" * 8],
-            memory_be = ["A" * 8, "R" * 8, "G" * 8, "B" * 8])
+            memory_le = [A(7, 0), R(7, 0), G(7, 0), B(7, 0)],
+            memory_be = [A(7, 0), R(7, 0), G(7, 0), B(7, 0)])
 
     def test_format_exceptions(self):
         self.assertFormatMatches(
             format_str = "V4L2_PIX_FMT_ABGR32",
             native = None,
-            memory_le = ["B" * 8, "G" * 8, "R" * 8, "A" * 8],
-            memory_be = ["B" * 8, "G" * 8, "R" * 8, "A" * 8])
+            memory_le = [B(7, 0), G(7, 0), R(7, 0), A(7, 0)],
+            memory_be = [B(7, 0), G(7, 0), R(7, 0), A(7, 0)])
 
         self.assertFormatMatches(
             format_str = "V4L2_PIX_FMT_XBGR32",
             native = None,
-            memory_le = ["B" * 8, "G" * 8, "R" * 8, "X" * 8],
-            memory_be = ["B" * 8, "G" * 8, "R" * 8, "X" * 8])
+            memory_le = [B(7, 0), G(7, 0), R(7, 0), X(7, 0)],
+            memory_be = [B(7, 0), G(7, 0), R(7, 0), X(7, 0)])
 
         self.assertFormatMatches(
             format_str = "V4L2_PIX_FMT_BGR666",
             native = None,
-            memory_le = ["B" * 6 + "G" * 2, "G" * 4 + "R" * 4, "R" * 2 + "X" * 6],
-            memory_be = ["B" * 6 + "G" * 2, "G" * 4 + "R" * 4, "R" * 2 + "X" * 6])
+            memory_le = [B(5, 0) + G(5, 4), G(3, 0) + R(5, 2), R(1, 0) + X(5, 0)],
+            memory_be = [B(5, 0) + G(5, 4), G(3, 0) + R(5, 2), R(1, 0) + X(5, 0)])
 
     def test_documentation(self):
         self.assertHasDocumentationFor("v4l2")

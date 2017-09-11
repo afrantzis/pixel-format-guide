@@ -24,10 +24,10 @@ import re
 
 wl_drm_re = re.compile("WL_DRM_FORMAT_(?P<components>.*)")
 
-def rgba_components_to_memory(components):
+def rgba_bits_to_memory(components):
     return util.native_to_memory_le(components)
 
-def yuv_components_to_memory(components):
+def yuv_bits_to_memory(components):
     return util.split_bytes(components)
 
 def describe(format_str):
@@ -37,12 +37,13 @@ def describe(format_str):
         return None
 
     components_str = match.group("components")
-    components = util.parse_components_with_separate_sizes(components_str)
+    components, sizes = util.parse_components_with_separate_sizes(components_str)
+    bits = util.expand_components(components, sizes)
 
     if "Y" in components_str:
-        memory = yuv_components_to_memory(components)
+        memory = yuv_bits_to_memory(bits)
     else:
-        memory = rgba_components_to_memory(components)
+        memory = rgba_bits_to_memory(bits)
 
     return FormatDescription(
             native = None,

@@ -23,6 +23,12 @@ import sys
 import pfg
 from io import StringIO
 
+def native_to_str(native):
+    return "".join(native)
+
+def memory_to_str(memory):
+    return " ".join(("".join(b) for b in memory))
+
 class MainTest(unittest.TestCase):
     def setUp(self):
         self.orig_stdout, sys.stdout = sys.stdout, StringIO()
@@ -37,9 +43,9 @@ class MainTest(unittest.TestCase):
         sys.stdout.seek(0)
         output = sys.stdout.read()
 
-        self.assertIn(description.native, output)
-        self.assertIn(" ".join(description.memory_le), output)
-        self.assertIn(" ".join(description.memory_be), output)
+        self.assertIn(native_to_str(description.native), output)
+        self.assertIn(memory_to_str(description.memory_le), output)
+        self.assertIn(memory_to_str(description.memory_be), output)
         self.assertIn("Native 16-bit type", output)
 
     def test_describes_format_without_native_description(self):
@@ -49,8 +55,8 @@ class MainTest(unittest.TestCase):
         sys.stdout.seek(0)
         output = sys.stdout.read()
 
-        self.assertIn(" ".join(description.memory_le), output)
-        self.assertIn(" ".join(description.memory_be), output)
+        self.assertIn(memory_to_str(description.memory_le), output)
+        self.assertIn(memory_to_str(description.memory_be), output)
         self.assertIn("Bytes in memory", output)
 
     def test_reports_unknown_format(self):

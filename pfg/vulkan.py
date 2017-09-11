@@ -25,8 +25,6 @@ import re
 r = "UNORM|SNORM|USCALED|SSCALED|UINT|SINT|SRGB|SFLOAT|UFLOAT"
 vk_re = re.compile("VK_FORMAT_(?P<components>.*)_(" + r + ")(?P<pack>_PACK\d+)?")
 
-def components_to_memory(components):
-    return util.split_bytes(components)
 
 def describe(format_str):
     match = vk_re.match(format_str)
@@ -35,19 +33,21 @@ def describe(format_str):
         return None
 
     components_str = match.group("components")
-    components = util.parse_components_with_mixed_sizes(components_str)
+    components, sizes = util.parse_components_with_mixed_sizes(components_str)
+    bits = util.expand_components(components, sizes)
+
     packed = match.group("pack") is not None
 
     if packed:
         return FormatDescription(
-            native = components,
-            memory_le = util.native_to_memory_le(components),
-            memory_be = util.native_to_memory_be(components))
+            native = bits,
+            memory_le = util.native_to_memory_le(bits),
+            memory_be = util.native_to_memory_be(bits))
     else:
         return FormatDescription(
             native = None,
-            memory_le = components_to_memory(components),
-            memory_be = components_to_memory(components))
+            memory_le = util.split_bytes_le(bits, sizes[0] // 8),
+            memory_be = util.split_bytes_be(bits, sizes[0] // 8))
 
 def document():
     return util.read_documentation("vulkan.md")

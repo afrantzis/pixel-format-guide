@@ -22,7 +22,7 @@ from .format_description import FormatDescription
 from . import util
 import re
 
-sdl2_re = re.compile("SDL_PIXELFORMAT_(?P<components>[RGBAX]+)(?P<bits>\d+)")
+sdl2_re = re.compile("SDL_PIXELFORMAT_(?P<components>[RGBAX]+)(?P<sizes>\d+)")
 
 def rgba_components_to_memory(components):
     return util.native_to_memory_le(components)
@@ -37,22 +37,23 @@ def describe(format_str):
         return None
 
     components_str = match.group("components")
-    bits_str = match.group("bits")
+    sizes_str = match.group("sizes")
 
     # Size of 24 or 32 denotes a byte array format, otherwise it's a packed format
-    if bits_str == "24" or bits_str == "32":
-        components = util.parse_components_with_separate_sizes(components_str)
+    if sizes_str == "24" or sizes_str == "32":
+        components, sizes = util.parse_components_with_separate_sizes(components_str)
+        bits = util.expand_components(components, sizes)
         return FormatDescription(
                 native = None,
-                memory_le = util.split_bytes(components),
-                memory_be = util.split_bytes(components))
+                memory_le = util.split_bytes(bits),
+                memory_be = util.split_bytes(bits))
     else:
-        components = util.parse_components_with_separate_sizes(components_str + bits_str)
+        components, sizes = util.parse_components_with_separate_sizes(components_str + sizes_str)
+        bits = util.expand_components(components, sizes)
         return FormatDescription(
-                native = components,
-                memory_le = util.native_to_memory_le(components),
-                memory_be = util.native_to_memory_be(components))
+                native = bits,
+                memory_le = util.native_to_memory_le(bits),
+                memory_be = util.native_to_memory_be(bits))
 
 def document():
     return util.read_documentation("sdl2.md")
-

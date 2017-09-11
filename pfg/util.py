@@ -20,32 +20,63 @@
 
 import os
 
+subscripts = ['₀','₁','₂','₃','₄','₅','₆','₇','₈','₉']
+
+def subscript(n):
+    ret = ""
+    digits = str(n)
+    for d in digits:
+        ret = ret + subscripts[int(d)]
+    return ret
+
+def split_bits(s, n):
+    return [s[i:i+n] for i in range(0, len(s), n)]
+
 def split_bytes(s):
-    return [s[i:i+8] for i in range(0, len(s), 8)]
+    return split_bits(s, 8)
+
+def native_to_memory_be(native):
+    return split_bytes(native)
+
+def native_to_memory_le(native):
+    byte_list = split_bytes(native)
+    return [b for b in reversed(byte_list)]
+
+def split_bytes_le(components, n):
+    ret = []
+    s = split_bits(components, 8 * n)
+    for w in s:
+        ret = ret + native_to_memory_le(w)
+    return ret
+
+def split_bytes_be(components, n):
+    ret = []
+    s = split_bits(components, 8 * n)
+    for w in s:
+        ret = ret + native_to_memory_be(w)
+    return ret
+
+
+def component_bits(component, msb, lsb):
+    if component == '': return []
+    return [component + subscript(i) for i in reversed(range(lsb, msb + 1))]
 
 # Parse component strings of the form: R8G8B8A8
-def parse_components_with_mixed_sizes(component_str, default_size=8):
-    ret = ""
-    current_component = ''
-    current_size = 0
-
-    component_size = lambda : current_size if current_size > 0 else default_size
+def parse_components_with_mixed_sizes(component_str):
+    components = []
+    sizes = []
 
     for c in component_str:
         if c.isdigit():
-            current_size = current_size * 10 + int(c)
+            sizes[-1] = sizes[-1] * 10 + int(c)
         else:
-            ret = ret + current_component * component_size()
-            current_size = 0
-            current_component = c
+            components.append(c)
+            sizes.append(0)
 
-    ret = ret + current_component * component_size()
-
-    return ret
+    return components, sizes
 
 # Parse component strings of the form: RGBA8888
-def parse_components_with_separate_sizes(component_str, default_size=8):
-    ret = ""
+def parse_components_with_separate_sizes(component_str):
     components = []
     sizes = []
 
@@ -58,19 +89,18 @@ def parse_components_with_separate_sizes(component_str, default_size=8):
         else:
             components.append(c)
 
-    sizes.extend([default_size] * (len(components) - len(sizes)))
+    return components, sizes
 
-    for c,s in zip(components, sizes):
-        ret = ret + c * s
+def expand_components(components, sizes, default_size=8):
+    normalized_sizes = sizes
+    normalized_sizes.extend([default_size] * (len(components) - len(normalized_sizes)))
+
+    ret = []
+
+    for c,s in zip(components, normalized_sizes):
+        ret = ret + component_bits(c, s - 1, 0)
 
     return ret
-
-def native_to_memory_be(native):
-    return split_bytes(native)
-
-def native_to_memory_le(native):
-    byte_list = split_bytes(native)
-    return [b for b in reversed(byte_list)]
 
 def read_documentation(docfile):
     here_path = os.path.realpath(os.path.dirname(__file__))

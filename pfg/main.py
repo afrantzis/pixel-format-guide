@@ -26,17 +26,20 @@ def print_indented(indent, s):
     print(" " * indent + s)
 
 def print_memory(text, memory):
-    header_byte = (" "*8).join([str(i) for i in range(0, len(memory))])
-    header_ml = "M      L " * len(memory)
-    memory_str = " ".join(memory)
+    byte_str_list = ["".join(b) for b in memory]
+    memory_str = " ".join(byte_str_list)
+
+    header_byte = "".join((str(i) + " " * len(b) for i,b in enumerate(byte_str_list)))
+    header_ml = "".join(("M" + " " * (len(b) - 2) + "L " for b in byte_str_list))
 
     print(text + header_byte)
     print_indented(len(text), header_ml)
     print_indented(len(text), memory_str)
 
 def print_native(text, native):
-    print(text + "M" + " " * (len(native) - 2) + "L")
-    print_indented(len(text), native);
+    native_str = "".join(native)
+    print(text + "M" + " " * (len(native_str) - 2) + "L")
+    print_indented(len(text), "".join(native));
 
 def describe(args):
     description = commands.describe(args.format)

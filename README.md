@@ -19,36 +19,36 @@ Examples:
     $ python3 -m pfg describe GL_RGBA+GL_UNSIGNED_INT_2_10_10_10_REV
     Format:               GL_RGBA+GL_UNSIGNED_INT_2_10_10_10_REV
     Described as:         Native 32-bit type
-    Native type:          M                              L
-                          AABBBBBBBBBBGGGGGGGGGGRRRRRRRRRR
-    Memory little-endian: 0        1        2        3
-                          M      L M      L M      L M      L
-                          RRRRRRRR GGGGGGRR BBBBGGGG AABBBBBB
-    Memory big-endian:    0        1        2        3
-                          M      L M      L M      L M      L
-                          AABBBBBB BBBBGGGG GGGGGGRR RRRRRRRR
+    Native type:          M                                                              L
+                          A₁A₀B₉B₈B₇B₆B₅B₄B₃B₂B₁B₀G₉G₈G₇G₆G₅G₄G₃G₂G₁G₀R₉R₈R₇R₆R₅R₄R₃R₂R₁R₀
+    Memory little-endian: 0                1                2                3
+                          M              L M              L M              L M              L
+                          R₇R₆R₅R₄R₃R₂R₁R₀ G₅G₄G₃G₂G₁G₀R₉R₈ B₃B₂B₁B₀G₉G₈G₇G₆ A₁A₀B₉B₈B₇B₆B₅B₄
+    Memory big-endian:    0                1                2                3
+                          M              L M              L M              L M              L
+                          A₁A₀B₉B₈B₇B₆B₅B₄ B₃B₂B₁B₀G₉G₈G₇G₆ G₅G₄G₃G₂G₁G₀R₉R₈ R₇R₆R₅R₄R₃R₂R₁R₀
 
     $ python3 -m pfg describe VK_FORMAT_A2R10G10B10_UNORM_PACK32
     Format:               VK_FORMAT_A2R10G10B10_UNORM_PACK32
     Described as:         Native 32-bit type
-    Native type:          M                              L
-                          AARRRRRRRRRRGGGGGGGGGGBBBBBBBBBB
-    Memory little-endian: 0        1        2        3
-                          M      L M      L M      L M      L
-                          BBBBBBBB GGGGGGBB RRRRGGGG AARRRRRR
-    Memory big-endian:    0        1        2        3
-                          M      L M      L M      L M      L
-                          AARRRRRR RRRRGGGG GGGGGGBB BBBBBBBB
+    Native type:          M                                                              L
+                          A₁A₀R₉R₈R₇R₆R₅R₄R₃R₂R₁R₀G₉G₈G₇G₆G₅G₄G₃G₂G₁G₀B₉B₈B₇B₆B₅B₄B₃B₂B₁B₀
+    Memory little-endian: 0                1                2                3
+                          M              L M              L M              L M              L
+                          B₇B₆B₅B₄B₃B₂B₁B₀ G₅G₄G₃G₂G₁G₀B₉B₈ R₃R₂R₁R₀G₉G₈G₇G₆ A₁A₀R₉R₈R₇R₆R₅R₄
+    Memory big-endian:    0                1                2                3
+                          M              L M              L M              L M              L
+                          A₁A₀R₉R₈R₇R₆R₅R₄ R₃R₂R₁R₀G₉G₈G₇G₆ G₅G₄G₃G₂G₁G₀B₉B₈ B₇B₆B₅B₄B₃B₂B₁B₀
 
     $ python3 -m pfg describe WL_DRM_FORMAT_ARGB8888
     Format:               WL_DRM_FORMAT_ARGB8888
     Described as:         Bytes in memory
-    Memory little-endian: 0        1        2        3
-                          M      L M      L M      L M      L
-                          BBBBBBBB GGGGGGGG RRRRRRRR AAAAAAAA
-    Memory big-endian:    0        1        2        3
-                          M      L M      L M      L M      L
-                          BBBBBBBB GGGGGGGG RRRRRRRR AAAAAAAA
+    Memory little-endian: 0                1                2                3
+                          M              L M              L M              L M              L
+                          B₇B₆B₅B₄B₃B₂B₁B₀ G₇G₆G₅G₄G₃G₂G₁G₀ R₇R₆R₅R₄R₃R₂R₁R₀ A₇A₆A₅A₄A₃A₂A₁A₀
+    Memory big-endian:    0                1                2                3
+                          M              L M              L M              L M              L
+                          B₇B₆B₅B₄B₃B₂B₁B₀ G₇G₆G₅G₄G₃G₂G₁G₀ R₇R₆R₅R₄R₃R₂R₁R₀ A₇A₆A₅A₄A₃A₂A₁A₀
 
     $ python3 -m pfg document vulkan
     # Vulkan pixel formats

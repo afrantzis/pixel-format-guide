@@ -18,45 +18,45 @@
 # Authors:
 #   Alexandros Frantzis <alexandros.frantzis@collabora.com>
 
-from . import pfgtest
+from .pfgtest import TestCase, R, G, B, A
 
-class VulkanTest(pfgtest.TestCase):
+class SDL2Test(TestCase):
     def test_packed_formats(self):
         self.assertFormatMatches(
             format_str = "SDL_PIXELFORMAT_RGB332",
-            native = "R" * 3 + "G" * 3 + "B" * 2,
-            memory_le = ["R" * 3 + "G" * 3 + "B" * 2],
-            memory_be = ["R" * 3 + "G" * 3 + "B" * 2])
+            native = R(2, 0) + G(2, 0) + B(1, 0),
+            memory_le = [R(2, 0) + G(2, 0) + B(1, 0)],
+            memory_be = [R(2, 0) + G(2, 0) + B(1, 0)])
 
         self.assertFormatMatches(
             format_str = "SDL_PIXELFORMAT_RGB565",
-            native = "R" * 5 + "G" * 6 + "B" * 5,
-            memory_le = ["G" * 3 + "B" * 5, "R" * 5 + "G" * 3],
-            memory_be = ["R" * 5 + "G" * 3, "G" * 3 + "B" * 5])
+            native = R(4, 0) + G(5, 0) + B(4, 0),
+            memory_le = [G(2, 0)+ B(4, 0), R(4, 0) + G(5, 3)],
+            memory_be = [R(4, 0) + G(5, 3), G(2, 0) + B(4, 0)])
 
         self.assertFormatMatches(
             format_str = "SDL_PIXELFORMAT_ARGB2101010",
-            native = "A" * 2 + "R" * 10 + "G" * 10 + "B" * 10,
+            native = A(1, 0) + R(9, 0) + G(9, 0) + B(9, 0),
             memory_le = [
-                "B" * 8,
-                "G" * 6 + "B" * 2,
-                "R" * 4 + "G" * 4,
-                "A" * 2 + "R" * 6],
+                B(7, 0),
+                G(5, 0) + B(9, 8),
+                R(3, 0) + G(9, 6),
+                A(1, 0) + R(9, 4)],
             memory_be = [
-                "A" * 2 + "R" * 6,
-                "R" * 4 + "G" * 4,
-                "G" * 6 + "B" * 2,
-                "B" * 8])
+                A(1, 0) + R(9, 4),
+                R(3, 0) + G(9, 6),
+                G(5, 0) + B(9, 8),
+                B(7, 0)])
 
     def test_array_formats(self):
         self.assertFormatMatches(
             format_str = "SDL_PIXELFORMAT_RGB24",
             native = None,
-            memory_le = ["R" * 8, "G" * 8, "B" * 8],
-            memory_be = ["R" * 8, "G" * 8, "B" * 8])
+            memory_le = [R(7, 0), G(7, 0), B(7, 0)],
+            memory_be = [R(7, 0), G(7, 0), B(7, 0)])
 
         self.assertFormatMatches(
             format_str = "SDL_PIXELFORMAT_BGRA32",
             native = None,
-            memory_le = ["B" * 8, "G" * 8, "R" * 8, "A" * 8],
-            memory_be = ["B" * 8, "G" * 8, "R" * 8, "A" * 8])
+            memory_le = [B(7, 0), G(7, 0), R(7, 0), A(7, 0)],
+            memory_be = [B(7, 0), G(7, 0), R(7, 0), A(7, 0)])
