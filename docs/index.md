@@ -24,9 +24,9 @@ Development of the Pixel Format Guide is sponsored by
 
 There are two main ways to describe the components of a typical pixel format:
 
-* As bytes (or parts of bytes) in memory in a fixed order
+* As bytes (or parts of bytes) in memory in a fixed order (often called array formats)
 
-* As bit fields in a native type
+* As bit ranges in a native type (often called packed formats)
 
 In the first case, the memory layout does not depend on system endianness. For
 example, we can describe a format, let's call it `R8G8B8A8_array`, which on all
