@@ -11,7 +11,7 @@ Development of the Pixel Format Guide is sponsored by [Collabora Ltd](https://ww
 
 Run with:
 
-     $ python3 -m pfg describe [FORMAT]
+     $ python3 -m pfg describe [OPTIONS...] [FORMAT]
      $ python3 -m pfg document [FAMILY]
 
 Examples:
@@ -49,6 +49,18 @@ Examples:
     Memory big-endian:    0                1                2                3
                           M              L M              L M              L M              L
                           B₇B₆B₅B₄B₃B₂B₁B₀ G₇G₆G₅G₄G₃G₂G₁G₀ R₇R₆R₅R₄R₃R₂R₁R₀ A₇A₆A₅A₄A₃A₂A₁A₀
+
+    $ python3 -m pfg describe --hide-bit-indices SDL_PIXELFORMAT_RGB565
+    Format:               SDL_PIXELFORMAT_RGB565
+    Described as:         Native 16-bit type
+    Native type:          M              L
+                          RRRRRGGGGGGBBBBB
+    Memory little-endian: 0        0
+                          M      L M      L
+                          GGGBBBBB RRRRRGGG
+    Memory big-endian:    0        0
+                          M      L M      L
+                          RRRRRGGG GGGBBBBB
 
     $ python3 -m pfg document vulkan
     # Vulkan pixel formats

@@ -21,25 +21,46 @@
 import sys
 import argparse
 from . import commands
+from . import util
+
+def find_all(s, m):
+    return [i for i, c in enumerate(s) if c == m]
+
+def remove_subscripts(s):
+    return "".join((c for c in s if c not in util.subscripts))
 
 def print_indented(indent, s):
     print(" " * indent + s)
 
-def print_memory(text, memory):
-    byte_str_list = ["".join(b) for b in memory]
-    memory_str = " ".join(byte_str_list)
+def print_memory(text, memory, hide_bit_indices):
+    memory_str = " ".join(("".join(b) for b in memory))
+    if hide_bit_indices:
+        memory_str = remove_subscripts(memory_str)
+    header_byte = [" "] * len(memory_str)
+    header_ml = [" "] * len(memory_str)
 
-    header_byte = "".join((str(i) + " " * len(b) for i,b in enumerate(byte_str_list)))
-    header_ml = "".join(("M" + " " * (len(b) - 2) + "L " for b in byte_str_list))
+    spaces = find_all(memory_str, " ")
 
-    print(text + header_byte)
-    print_indented(len(text), header_ml)
-    print_indented(len(text), memory_str)
+    header_byte[0] = "0";
+    header_ml[0] = "M";
 
-def print_native(text, native):
+    for i, p in enumerate(spaces):
+        header_byte[p + 1] = str(i + 1)
+        header_ml[p - 1] = "L";
+        header_ml[p + 1] = "M";
+
+    header_ml[-1] = "L";
+
+    print(text + "".join(header_byte).strip())
+    print_indented(len(text), "".join(header_ml).strip())
+    print_indented(len(text), memory_str.strip())
+
+def print_native(text, native, hide_bit_indices):
     native_str = "".join(native)
+    if hide_bit_indices:
+        native_str = remove_subscripts(native_str)
     print(text + "M" + " " * (len(native_str) - 2) + "L")
-    print_indented(len(text), "".join(native));
+    print_indented(len(text), native_str);
 
 def describe(args):
     description = commands.describe(args.format)
@@ -47,11 +68,11 @@ def describe(args):
         print("Format:               %s" % args.format)
         if description.native:
             print("Described as:         Native %d-bit type" % len(description.native))
-            print_native("Native type:          ", description.native)
+            print_native("Native type:          ", description.native, args.hide_bit_indices)
         else:
             print("Described as:         Bytes in memory")
-        print_memory("Memory little-endian: ", description.memory_le)
-        print_memory("Memory big-endian:    ", description.memory_be)
+        print_memory("Memory little-endian: ", description.memory_le, args.hide_bit_indices)
+        print_memory("Memory big-endian:    ", description.memory_be, args.hide_bit_indices)
     else:
         print("Unknown pixel format '%s'" % args.format)
 
@@ -70,6 +91,8 @@ def main(argv):
     parser_describe = subparsers.add_parser(
         "describe", description="Describe a pixel format")
     parser_describe.add_argument("format")
+    parser_describe.add_argument(
+        "--hide-bit-indices", action='store_true', help="Hide the indices of component bits")
     parser_describe.set_defaults(func=describe)
 
     parser_document = subparsers.add_parser(

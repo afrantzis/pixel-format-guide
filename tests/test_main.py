@@ -29,6 +29,9 @@ def native_to_str(native):
 def memory_to_str(memory):
     return " ".join(("".join(b) for b in memory))
 
+def remove_subscripts(s):
+    return "".join((c for c in s if c not in pfg.util.subscripts))
+
 class MainTest(unittest.TestCase):
     def setUp(self):
         self.orig_stdout, sys.stdout = sys.stdout, StringIO()
@@ -58,6 +61,18 @@ class MainTest(unittest.TestCase):
         self.assertIn(memory_to_str(description.memory_le), output)
         self.assertIn(memory_to_str(description.memory_be), output)
         self.assertIn("Bytes in memory", output)
+
+    def test_describes_format_without_bit_indices(self):
+        pfg.main(["pfg.py", "describe", "--hide-bit-indices", "VK_FORMAT_R5G6B5_UNORM_PACK16"])
+        description = pfg.describe("VK_FORMAT_R5G6B5_UNORM_PACK16")
+
+        sys.stdout.seek(0)
+        output = sys.stdout.read()
+
+        self.assertIn(remove_subscripts(native_to_str(description.native)), output)
+        self.assertIn(remove_subscripts(memory_to_str(description.memory_le)), output)
+        self.assertIn(remove_subscripts(memory_to_str(description.memory_be)), output)
+        self.assertIn("Native 16-bit type", output)
 
     def test_reports_unknown_format(self):
         pfg.main(["pfg", "describe", "unknown_format"])
