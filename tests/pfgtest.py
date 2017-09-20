@@ -42,3 +42,8 @@ def X(m,l): return util.component_bits("X", m, l)
 def Y(m,l): return util.component_bits("Y", m, l)
 def U(m,l): return util.component_bits("U", m, l)
 def V(m,l): return util.component_bits("V", m, l)
+
+def Rn(n,m,l): return util.component_bits("(R+%d)" % n, m, l)
+def Gn(n,m,l): return util.component_bits("(G+%d)" % n, m, l)
+def Bn(n,m,l): return util.component_bits("(B+%d)" % n, m, l)
+def An(n,m,l): return util.component_bits("(A+%d)" % n, m, l)

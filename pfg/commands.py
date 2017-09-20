@@ -19,6 +19,7 @@
 #   Alexandros Frantzis <alexandros.frantzis@collabora.com>
 
 from . import opengl
+from . import pixman
 from . import sdl2
 from . import v4l2
 from . import vulkan
@@ -26,6 +27,7 @@ from . import wayland_drm
 
 families = [
     opengl,
+    pixman,
     sdl2,
     v4l2,
     vulkan,
