@@ -48,6 +48,7 @@ help you understand the conventions used by the various pixel format families.
 # Pixel format descriptions
 
 * [OpenGL pixel formats](opengl.md)
+* [Pixman pixel formats](pixman.md)
 * [SDL2 pixel formats](sdl2.md)
 * [V4L2 pixel formats](v4l2.md)
 * [Vulkan pixel formats](vulkan.md)
