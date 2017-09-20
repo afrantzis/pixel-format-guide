@@ -22,7 +22,7 @@ The memory layout of a packed pixel format depends on system endianness.
 **Example: `SDL_PIXELFORMAT_RGB565`**
 
 The pixel is represented by a 16-bit value, with R in bits 11-15, G in bits
-5-10 and B in bits 0-5.
+5-10 and B in bits 0-4.
 
 On little-endian systems the pixel is stored in memory as:
 
