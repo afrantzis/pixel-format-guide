@@ -38,19 +38,8 @@ def describe(format_str):
         memory_le = util.native_to_memory_le(bits)
         memory_be = util.native_to_memory_be(bits)
     else:
-        fill_components_le = ["(" + c + "+%d)" % i
-                              for c in components
-                              for i in range(8 // len(bits) -1, 0, -1)]
-        fill_components_be = ["(" + c + "+%d)" % i
-                              for c in components
-                              for i in range(1, 8 // len(bits))]
-
-        pixels_per_byte = 8 // len(bits)
-        fill_bits_le = util.expand_components(fill_components_le, sizes * pixels_per_byte)
-        fill_bits_be = util.expand_components(fill_components_be, sizes * pixels_per_byte)
-
-        memory_le = [fill_bits_le + bits]
-        memory_be = [bits + fill_bits_be]
+        memory_le = util.native_to_memory_byte_le(bits)
+        memory_be = util.native_to_memory_byte_be(bits)
 
     return FormatDescription(
         native = bits,
