@@ -31,8 +31,7 @@ class TestCase(unittest.TestCase):
 
     def assertHasDocumentationFor(self, family):
         documentation = pfg.document(family)
-        self.assertIsNotNone(documentation)
-        self.assertNotEqual("", documentation)
+        self.assertEqual(util.read_documentation(family + ".md"), documentation)
 
 def R(m,l): return util.component_bits("R", m, l)
 def G(m,l): return util.component_bits("G", m, l)
