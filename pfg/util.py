@@ -56,7 +56,6 @@ def split_bytes_be(components, n):
         ret = ret + native_to_memory_be(w)
     return ret
 
-
 def component_bits(component, msb, lsb):
     if component == '': return []
     return [component + subscript(i) for i in reversed(range(lsb, msb + 1))]
@@ -101,6 +100,35 @@ def expand_components(components, sizes, default_size=8):
         ret = ret + component_bits(c, s - 1, 0)
 
     return ret
+
+def pixel_bits(bits, i):
+    if i == 0:
+        return bits
+
+    ret = []
+    for b in bits:
+        component = ''.join((c for c in b if c not in subscripts))
+        ret.append(b.replace(component, "(" + component + "+%d)" % i))
+
+    return ret
+
+def native_to_memory_byte_le(bits):
+    byte = []
+
+    pixels_per_byte = 8 // len(bits)
+    for i in range(0, pixels_per_byte):
+        byte = pixel_bits(bits, i) + byte
+
+    return [byte]
+
+def native_to_memory_byte_be(bits):
+    byte = []
+
+    pixels_per_byte = 8 // len(bits)
+    for i in range(0, pixels_per_byte):
+        byte = byte + pixel_bits(bits, i)
+
+    return [byte]
 
 def read_documentation(docfile):
     here_path = os.path.realpath(os.path.dirname(__file__))

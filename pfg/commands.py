@@ -18,6 +18,7 @@
 # Authors:
 #   Alexandros Frantzis <alexandros.frantzis@collabora.com>
 
+from . import cairo
 from . import opengl
 from . import pixman
 from . import sdl2
@@ -26,6 +27,7 @@ from . import vulkan
 from . import wayland_drm
 
 families = [
+    cairo,
     opengl,
     pixman,
     sdl2,

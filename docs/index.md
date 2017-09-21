@@ -47,6 +47,7 @@ help you understand the conventions used by the various pixel format families.
 
 # Pixel format descriptions
 
+* [Cairo pixel formats](cairo.md)
 * [OpenGL pixel formats](opengl.md)
 * [Pixman pixel formats](pixman.md)
 * [SDL2 pixel formats](sdl2.md)
