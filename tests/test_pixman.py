@@ -20,7 +20,7 @@
 
 from .pfgtest import TestCase, R, G, B, A, X, Rn, Gn, Bn, An
 
-class VulkanTest(TestCase):
+class PixmanTest(TestCase):
     def test_32bpp_formats(self):
         self.assertFormatMatches(
             format_str = "PIXMAN_b8g8r8a8",

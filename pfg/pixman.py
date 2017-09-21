@@ -58,4 +58,4 @@ def describe(format_str):
         memory_be = memory_be)
 
 def document():
-    return util.read_documentation("vulkan.md")
+    return util.read_documentation("pixman.md")
