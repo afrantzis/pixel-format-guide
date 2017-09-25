@@ -60,3 +60,6 @@ class SDL2Test(TestCase):
             native = None,
             memory_le = [B(7, 0), G(7, 0), R(7, 0), A(7, 0)],
             memory_be = [B(7, 0), G(7, 0), R(7, 0), A(7, 0)])
+
+    def test_documentation(self):
+        self.assertHasDocumentationFor("sdl2")

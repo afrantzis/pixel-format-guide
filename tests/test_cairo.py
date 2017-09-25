@@ -72,3 +72,6 @@ class CairoTest(TestCase):
             memory_be = [
                 A(0, 0) + An(1, 0, 0) + An(2, 0, 0) + An(3, 0, 0) +
                 An(4, 0, 0) + An(5, 0, 0) + An(6, 0, 0) + An(7, 0, 0)])
+
+    def test_documentation(self):
+        self.assertHasDocumentationFor("cairo")
