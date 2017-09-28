@@ -99,6 +99,10 @@ def find_compatible(args):
     else:
         print("Unknown pixel format '%s' or family '%s'" % (args.format, args.family))
 
+def list_families(args):
+    for f in commands.list_families():
+        print(f)
+
 def main(argv):
     parser = argparse.ArgumentParser()
     parser.set_defaults(func=lambda x: parser.print_help())
@@ -122,6 +126,10 @@ def main(argv):
     parser_find_compatible.add_argument("format")
     parser_find_compatible.add_argument("family")
     parser_find_compatible.set_defaults(func=find_compatible)
+
+    parser_list_families = subparsers.add_parser(
+        "list-families", description="List all supported pixel format families")
+    parser_list_families.set_defaults(func=list_families)
 
     args = parser.parse_args(argv[1:])
 

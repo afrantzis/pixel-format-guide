@@ -133,3 +133,13 @@ class MainTest(unittest.TestCase):
         self.assertIn("Unknown", output)
         self.assertIn("VK_FORMAT_B8G8R8A8_UNORM", output)
         self.assertIn("unknown_family", output)
+
+    def test_lists_families(self):
+        pfg.main(["pfg", "list-families"])
+        families = pfg.list_families()
+
+        sys.stdout.seek(0)
+        output = sys.stdout.read()
+
+        for f in families:
+            self.assertIn(f, output)

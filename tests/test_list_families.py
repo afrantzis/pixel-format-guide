@@ -18,5 +18,15 @@
 # Authors:
 #   Alexandros Frantzis <alexandros.frantzis@collabora.com>
 
-from .commands import describe, document, find_compatible, list_families
-from .main import main
+import unittest
+import pfg
+
+class ListFamiliesTest(unittest.TestCase):
+    def test_lists_families(self):
+        families = pfg.list_families()
+
+        for pfg_family in pfg.commands.families:
+            if pfg_family.document() is not None:
+                family = pfg_family.__name__.replace("pfg.", "")
+                self.assertIn(family, families)
+

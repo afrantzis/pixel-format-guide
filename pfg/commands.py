@@ -37,9 +37,12 @@ families = [
     wayland_drm
     ]
 
+def _family_name_from_module(family_module):
+    return family_module.__name__.split(".")[-1]
+
 def _family_module_from_name(family_str):
     for f in families:
-        modname = f.__name__.split(".")[-1]
+        modname = _family_name_from_module(f)
         if modname == family_str:
             return f
 
@@ -81,3 +84,6 @@ def find_compatible(format_str, family_str):
             compatibility.big_endian.append(name)
 
     return compatibility
+
+def list_families():
+    return [_family_name_from_module(f) for f in families]

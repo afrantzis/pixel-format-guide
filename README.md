@@ -14,6 +14,7 @@ Run with:
      $ python3 -m pfg describe [OPTIONS...] [FORMAT]
      $ python3 -m pfg find-compatible [FORMAT] [FAMILY]
      $ python3 -m pfg document [FAMILY]
+     $ python3 -m pfg list-families
 
 Examples of using the `describe` command:
 
@@ -89,6 +90,14 @@ Examples of using the `document` command:
 
     $ python3 -m pfg document wayland_drm
     # Wayland-drm pixel formats
+    ...
+
+Examples of using the `list-families` command:
+
+    $ python3 -m pfg list-families
+    cairo
+    opengl
+    pixman
     ...
 
 # Contributing to the Pixel Format Guide Tool
