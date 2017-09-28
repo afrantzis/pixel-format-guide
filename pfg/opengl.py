@@ -50,6 +50,50 @@ def normalize_components(components_str):
 
     return ret
 
+def gen_packed_formats(bits):
+    if len(bits) == 4:
+        formats = ["GL_RGBA", "GL_BGRA", "GL_RGBA_INTEGER", "GL_BGRA_INTEGER"]
+    elif len(bits) == 3:
+        formats = ["GL_RGB", "GL_RGB_INTEGER"]
+
+    data_type = {
+        8: "UNSIGNED_BYTE",
+        16: "UNSIGNED_SHORT",
+        32: "UNSIGNED_INT"
+        }[sum(bits)]
+
+    types = [
+        "GL_" + data_type + "_" + "_".join((str(b) for b in bits)),
+        "GL_" + data_type + "_" + "_".join((str(b) for b in reversed(bits))) + "_REV"
+        ]
+
+    return [f + "+" + t for f in formats for t in types]
+
+def gen_array_formats(components):
+    component = ["".join(components), "".join(components) + "_INTEGER"]
+    return ["GL_" + c + "+" + "GL_" + dt for c in component for dt in data_type_to_size_dict]
+
+def opengl_formats():
+    formats = []
+
+    formats += gen_packed_formats([3, 3, 2])
+    formats += gen_packed_formats([5, 6, 5])
+    formats += gen_packed_formats([4, 4, 4, 4])
+    formats += gen_packed_formats([5, 5, 5, 1])
+    formats += gen_packed_formats([8, 8, 8, 8])
+    formats += gen_packed_formats([10, 10, 10, 2])
+
+    formats += gen_array_formats(["RED"])
+    formats += gen_array_formats(["GREEN"])
+    formats += gen_array_formats(["BLUE"])
+    formats += gen_array_formats(["R", "G"])
+    formats += gen_array_formats(["R", "G", "B"])
+    formats += gen_array_formats(["R", "G", "B", "A"])
+    formats += gen_array_formats(["B", "G", "R"])
+    formats += gen_array_formats(["B", "G", "R", "A"])
+
+    return formats
+
 def describe(format_str):
     match = opengl_re.match(format_str)
 
@@ -85,6 +129,8 @@ def describe(format_str):
             memory_le = util.split_bytes_le(bits, sizes[0] // 8),
             memory_be = util.split_bytes_be(bits, sizes[0] // 8))
 
+def describe_all():
+    return {format_str:describe(format_str) for format_str in opengl_formats()}
+
 def document():
     return util.read_documentation("opengl.md")
-

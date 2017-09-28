@@ -25,6 +25,7 @@ from . import sdl2
 from . import v4l2
 from . import vulkan
 from . import wayland_drm
+from .format_compatibility import FormatCompatibility
 
 families = [
     cairo,
@@ -36,6 +37,14 @@ families = [
     wayland_drm
     ]
 
+def _family_module_from_name(family_str):
+    for f in families:
+        modname = f.__name__.split(".")[-1]
+        if modname == family_str:
+            return f
+
+    return None
+
 def describe(format_str):
     for family in families:
         description = family.describe(format_str)
@@ -44,9 +53,31 @@ def describe(format_str):
 
     return None
 
-def document(family):
-    for f in families:
-        modname = f.__name__.split(".")[-1]
-        if modname == family:
-            return f.document()
-    return None
+def document(family_str):
+    family = _family_module_from_name(family_str)
+    return family.document() if family is not None else None
+
+def find_compatible(format_str, family_str):
+    description = describe(format_str)
+    if description is None:
+        return None
+
+    family = _family_module_from_name(family_str)
+    if family is None:
+        return None
+
+    family_descriptions = family.describe_all()
+
+    compatibility = FormatCompatibility()
+
+    for name, fd in family_descriptions.items():
+        if description.native == fd.native and \
+           description.memory_le == fd.memory_le and \
+           description.memory_be == fd.memory_be:
+            compatibility.everywhere.append(name)
+        elif description.memory_le == fd.memory_le:
+            compatibility.little_endian.append(name)
+        elif description.memory_be == fd.memory_be:
+            compatibility.big_endian.append(name)
+
+    return compatibility

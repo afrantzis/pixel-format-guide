@@ -41,5 +41,20 @@ class WaylandDRMTest(TestCase):
             memory_le = [Y(7, 0), U(7, 0), Y(7, 0), V(7, 0)],
             memory_be = [Y(7, 0), U(7, 0), Y(7, 0), V(7, 0)])
 
+    def test_find_compatible(self):
+        self.assertFindCompatibleMatches(
+            format_str = "VK_FORMAT_R5G6B5_UNORM_PACK16",
+            family_str = "wayland_drm",
+            everywhere = [],
+            little_endian = ["WL_DRM_FORMAT_RGB565"],
+            big_endian = [])
+
+        self.assertFindCompatibleMatches(
+            format_str = "VK_FORMAT_B8G8R8A8_UNORM",
+            family_str = "wayland_drm",
+            everywhere = ["WL_DRM_FORMAT_ARGB8888"],
+            little_endian = [],
+            big_endian = [])
+
     def test_documentation(self):
         self.assertHasDocumentationFor("wayland_drm")

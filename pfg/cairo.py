@@ -24,6 +24,15 @@ import re
 
 cairo_re = re.compile("CAIRO_FORMAT_(?P<components>[ARGB]+)(?P<total_size>\d+)(?:_(?P<sizes>\d+))?")
 
+cairo_formats = [
+    "CAIRO_FORMAT_ARGB32",
+    "CAIRO_FORMAT_RGB24",
+    "CAIRO_FORMAT_A8",
+    "CAIRO_FORMAT_A1",
+    "CAIRO_FORMAT_RGB16_565",
+    "CAIRO_FORMAT_RGB30",
+    ]
+
 def describe(format_str):
     match = cairo_re.match(format_str)
 
@@ -58,6 +67,9 @@ def describe(format_str):
         native = bits,
         memory_le = memory_le,
         memory_be = memory_be)
+
+def describe_all():
+    return {format_str:describe(format_str) for format_str in cairo_formats}
 
 def document():
     return util.read_documentation("cairo.md")

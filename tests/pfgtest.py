@@ -29,6 +29,13 @@ class TestCase(unittest.TestCase):
         self.assertEqual(memory_le, fd.memory_le)
         self.assertEqual(memory_be, fd.memory_be)
 
+    def assertFindCompatibleMatches(self, format_str, family_str,
+                                    everywhere, little_endian, big_endian):
+        compatibility = pfg.find_compatible(format_str, family_str)
+        self.assertEqual(everywhere, compatibility.everywhere)
+        self.assertEqual(little_endian, compatibility.little_endian)
+        self.assertEqual(big_endian, compatibility.big_endian)
+
     def assertHasDocumentationFor(self, family):
         documentation = pfg.document(family)
         self.assertEqual(util.read_documentation(family + ".md"), documentation)

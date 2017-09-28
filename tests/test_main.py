@@ -99,3 +99,37 @@ class MainTest(unittest.TestCase):
 
         self.assertIn("Unknown", output)
         self.assertIn("unknown_family", output)
+
+    def test_finds_compatible_formats(self):
+        pfg.main(["pfg", "find-compatible", "VK_FORMAT_B8G8R8A8_UNORM", "opengl"])
+        compatibility = pfg.find_compatible("VK_FORMAT_B8G8R8A8_UNORM", "opengl")
+
+        sys.stdout.seek(0)
+        output = sys.stdout.read()
+
+        for f in compatibility.everywhere:
+            self.assertIn(f, output)
+        for f in compatibility.little_endian:
+            self.assertIn(f, output)
+        for f in compatibility.big_endian:
+            self.assertIn(f, output)
+
+    def test_reports_unknown_format_for_find_compatible(self):
+        pfg.main(["pfg", "find-compatible", "VK_FORMAT_B8G8R8A8", "opengl"])
+
+        sys.stdout.seek(0)
+        output = sys.stdout.read()
+
+        self.assertIn("Unknown", output)
+        self.assertIn("VK_FORMAT_B8G8R8A8", output)
+        self.assertIn("opengl", output)
+
+    def test_reports_unknown_family_for_find_compatible(self):
+        pfg.main(["pfg", "find-compatible", "VK_FORMAT_B8G8R8A8_UNORM", "unknown_family"])
+
+        sys.stdout.seek(0)
+        output = sys.stdout.read()
+
+        self.assertIn("Unknown", output)
+        self.assertIn("VK_FORMAT_B8G8R8A8_UNORM", output)
+        self.assertIn("unknown_family", output)

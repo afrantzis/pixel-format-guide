@@ -90,5 +90,30 @@ class OpenGLTest(TestCase):
             memory_le = [R(7, 0), G(7, 0)],
             memory_be = [R(7, 0), G(7, 0)])
 
+    def test_find_compatible(self):
+        self.assertFindCompatibleMatches(
+            format_str = "VK_FORMAT_R5G6B5_UNORM_PACK16",
+            family_str = "opengl",
+            everywhere = [
+                "GL_RGB+GL_UNSIGNED_SHORT_5_6_5",
+                "GL_RGB_INTEGER+GL_UNSIGNED_SHORT_5_6_5"],
+            little_endian = [],
+            big_endian = [])
+
+        self.assertFindCompatibleMatches(
+            format_str = "VK_FORMAT_B8G8R8A8_UNORM",
+            family_str = "opengl",
+            everywhere = [
+                "GL_BGRA+GL_UNSIGNED_BYTE",
+                "GL_BGRA+GL_BYTE",
+                "GL_BGRA_INTEGER+GL_UNSIGNED_BYTE",
+                "GL_BGRA_INTEGER+GL_BYTE"],
+            little_endian = [
+                "GL_BGRA+GL_UNSIGNED_INT_8_8_8_8_REV",
+                "GL_BGRA_INTEGER+GL_UNSIGNED_INT_8_8_8_8_REV"],
+            big_endian = [
+                "GL_BGRA+GL_UNSIGNED_INT_8_8_8_8",
+                "GL_BGRA_INTEGER+GL_UNSIGNED_INT_8_8_8_8"])
+
     def test_documentation(self):
         self.assertHasDocumentationFor("opengl")

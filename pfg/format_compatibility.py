@@ -18,5 +18,9 @@
 # Authors:
 #   Alexandros Frantzis <alexandros.frantzis@collabora.com>
 
-from .commands import describe, document, find_compatible
-from .main import main
+class FormatCompatibility:
+    def __init__(self):
+        self.everywhere = []
+        self.little_endian = []
+        self.big_endian = []
+

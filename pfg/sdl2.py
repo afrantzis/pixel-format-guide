@@ -24,6 +24,38 @@ import re
 
 sdl2_re = re.compile("SDL_PIXELFORMAT_(?P<components>[RGBAX]+)(?P<sizes>\d+)")
 
+sdl2_formats = [
+    "SDL_PIXELFORMAT_RGB332",
+    "SDL_PIXELFORMAT_RGB444",
+    "SDL_PIXELFORMAT_RGB555",
+    "SDL_PIXELFORMAT_BGR555",
+    "SDL_PIXELFORMAT_ARGB4444",
+    "SDL_PIXELFORMAT_RGBA4444",
+    "SDL_PIXELFORMAT_ABGR4444",
+    "SDL_PIXELFORMAT_BGRA4444",
+    "SDL_PIXELFORMAT_ARGB1555",
+    "SDL_PIXELFORMAT_RGBA5551",
+    "SDL_PIXELFORMAT_ABGR1555",
+    "SDL_PIXELFORMAT_BGRA5551",
+    "SDL_PIXELFORMAT_RGB565",
+    "SDL_PIXELFORMAT_BGR565",
+    "SDL_PIXELFORMAT_RGB24",
+    "SDL_PIXELFORMAT_BGR24",
+    "SDL_PIXELFORMAT_RGB888",
+    "SDL_PIXELFORMAT_RGBX8888",
+    "SDL_PIXELFORMAT_BGR888",
+    "SDL_PIXELFORMAT_BGRX8888",
+    "SDL_PIXELFORMAT_ARGB8888",
+    "SDL_PIXELFORMAT_RGBA8888",
+    "SDL_PIXELFORMAT_ABGR8888",
+    "SDL_PIXELFORMAT_BGRA8888",
+    "SDL_PIXELFORMAT_ARGB2101010",
+    "SDL_PIXELFORMAT_RGBA32",
+    "SDL_PIXELFORMAT_ARGB32",
+    "SDL_PIXELFORMAT_BGRA32",
+    "SDL_PIXELFORMAT_ABGR32",
+    ]
+
 def rgba_components_to_memory(components):
     return util.native_to_memory_le(components)
 
@@ -54,6 +86,9 @@ def describe(format_str):
                 native = bits,
                 memory_le = util.native_to_memory_le(bits),
                 memory_be = util.native_to_memory_be(bits))
+
+def describe_all():
+    return {format_str:describe(format_str) for format_str in sdl2_formats}
 
 def document():
     return util.read_documentation("sdl2.md")

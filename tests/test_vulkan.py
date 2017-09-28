@@ -56,5 +56,34 @@ class VulkanTest(TestCase):
                 G(5, 0) + B(9, 8),
                 B(7, 0)])
 
+    def test_find_compatible(self):
+        self.assertFindCompatibleMatches(
+            format_str = "GL_RGB+GL_UNSIGNED_SHORT_5_6_5",
+            family_str = "vulkan",
+            everywhere = ["VK_FORMAT_R5G6B5_UNORM_PACK16"],
+            little_endian = [],
+            big_endian = [])
+
+        self.assertFindCompatibleMatches(
+            format_str = "GL_RGBA+GL_UNSIGNED_BYTE",
+            family_str = "vulkan",
+            everywhere = [
+                "VK_FORMAT_R8G8B8A8_UNORM",
+                "VK_FORMAT_R8G8B8A8_SNORM",
+                "VK_FORMAT_R8G8B8A8_USCALED",
+                "VK_FORMAT_R8G8B8A8_SSCALED",
+                "VK_FORMAT_R8G8B8A8_UINT",
+                "VK_FORMAT_R8G8B8A8_SINT",
+                "VK_FORMAT_R8G8B8A8_SRGB"],
+            little_endian = [
+                "VK_FORMAT_A8B8G8R8_UNORM_PACK32",
+                "VK_FORMAT_A8B8G8R8_SNORM_PACK32",
+                "VK_FORMAT_A8B8G8R8_USCALED_PACK32",
+                "VK_FORMAT_A8B8G8R8_SSCALED_PACK32",
+                "VK_FORMAT_A8B8G8R8_UINT_PACK32",
+                "VK_FORMAT_A8B8G8R8_SINT_PACK32",
+                "VK_FORMAT_A8B8G8R8_SRGB_PACK32"],
+            big_endian = [])
+
     def test_documentation(self):
         self.assertHasDocumentationFor("vulkan")

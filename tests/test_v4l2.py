@@ -85,5 +85,20 @@ class V4L2Test(TestCase):
             memory_le = [B(5, 0) + G(5, 4), G(3, 0) + R(5, 2), R(1, 0) + X(5, 0)],
             memory_be = [B(5, 0) + G(5, 4), G(3, 0) + R(5, 2), R(1, 0) + X(5, 0)])
 
+    def test_find_compatible(self):
+        self.assertFindCompatibleMatches(
+            format_str = "VK_FORMAT_R5G6B5_UNORM_PACK16",
+            family_str = "v4l2",
+            everywhere = [],
+            little_endian = ["V4L2_PIX_FMT_RGB565"],
+            big_endian = ["V4L2_PIX_FMT_RGB565X"])
+
+        self.assertFindCompatibleMatches(
+            format_str = "VK_FORMAT_B8G8R8A8_UNORM",
+            family_str = "v4l2",
+            everywhere = ["V4L2_PIX_FMT_ABGR32"],
+            little_endian = [],
+            big_endian = [])
+
     def test_documentation(self):
         self.assertHasDocumentationFor("v4l2")

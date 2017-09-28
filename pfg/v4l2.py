@@ -25,6 +25,25 @@ import math
 
 v4l2_re = re.compile("V4L2_PIX_FMT_(?P<components>[RGBAX]+)(?P<sizes>\d+)(?P<x>X)?")
 
+v4l2_formats = [
+    "V4L2_PIX_FMT_RGB332",
+    "V4L2_PIX_FMT_ARGB444",
+    "V4L2_PIX_FMT_XRGB444",
+    "V4L2_PIX_FMT_ARGB555",
+    "V4L2_PIX_FMT_XRGB555",
+    "V4L2_PIX_FMT_RGB565",
+    "V4L2_PIX_FMT_ARGB555X",
+    "V4L2_PIX_FMT_XRGB555X",
+    "V4L2_PIX_FMT_RGB565X",
+    "V4L2_PIX_FMT_BGR24",
+    "V4L2_PIX_FMT_RGB24",
+    "V4L2_PIX_FMT_BGR666",
+    "V4L2_PIX_FMT_ABGR32",
+    "V4L2_PIX_FMT_XBGR32",
+    "V4L2_PIX_FMT_ARGB32",
+    "V4L2_PIX_FMT_XRGB32",
+    ]
+
 def describe_bgr666():
     memory = [
         util.component_bits("B", 5, 0) + util.component_bits("G", 5, 4),
@@ -96,6 +115,9 @@ def describe(format_str):
         native = None,
         memory_le = memory,
         memory_be = memory)
+
+def describe_all():
+    return {format_str:describe(format_str) for format_str in v4l2_formats}
 
 def document():
     return util.read_documentation("v4l2.md")

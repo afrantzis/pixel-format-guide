@@ -12,9 +12,10 @@ Development of the Pixel Format Guide is sponsored by [Collabora Ltd](https://ww
 Run with:
 
      $ python3 -m pfg describe [OPTIONS...] [FORMAT]
+     $ python3 -m pfg find-compatible [FORMAT] [FAMILY]
      $ python3 -m pfg document [FAMILY]
 
-Examples:
+Examples of using the `describe` command:
 
     $ python3 -m pfg describe GL_RGBA+GL_UNSIGNED_INT_2_10_10_10_REV
     Format:               GL_RGBA+GL_UNSIGNED_INT_2_10_10_10_REV
@@ -62,6 +63,26 @@ Examples:
                           M      L M      L
                           RRRRRGGG GGGBBBBB
 
+Examples of using the `find-compatible` command:
+
+    $ python3 -m pfg find-compatible VK_FORMAT_R8G8B8A8_UNORM sdl2
+    Format: VK_FORMAT_R8G8B8A8_UNORM
+    Is compatible on all systems with:
+            SDL_PIXELFORMAT_RGBA32
+    Is compatible on little-endian systems with:
+            SDL_PIXELFORMAT_ABGR8888
+    Is compatible on big-endian systems with:
+            SDL_PIXELFORMAT_RGBA8888
+
+    $ python3 -m pfg find-compatible GL_RGB+GL_UNSIGNED_SHORT_5_6_5_REV pixman
+    Format: GL_RGB+GL_UNSIGNED_SHORT_5_6_5_REV
+    Is compatible on all systems with:
+            PIXMAN_b5g6r5
+    Is compatible on little-endian systems with:
+    Is compatible on big-endian systems with:
+
+Examples of using the `document` command:
+
     $ python3 -m pfg document vulkan
     # Vulkan pixel formats
     ...
@@ -79,8 +100,8 @@ following:
   in `tests/test_family.py`.  Use one of the existing test files as a
   template.
 
-* Implement the `describe` method in a new `pfg/family.py` file. Use one of the
-  existing files as a template.
+* Implement the `describe` and `describe_all` methods in a new
+  `pfg/family.py` file. Use one of the existing files as a template.
 
 * Implement the `document` method in the `pfg/family.py` file, by creating a
   `docs/family.md` and returning its contents (use the

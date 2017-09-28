@@ -83,6 +83,22 @@ def document(args):
     else:
         print("Unknown or undocumented pixel format family '%s'" % args.family)
 
+def find_compatible(args):
+    compatibility = commands.find_compatible(args.format, args.family)
+    if compatibility:
+        print("Format: %s" % args.format)
+        print("Is compatible on all systems with:")
+        for f in compatibility.everywhere:
+            print_indented(8, f)
+        print("Is compatible on little-endian systems with:")
+        for f in compatibility.little_endian:
+            print_indented(8, f)
+        print("Is compatible on big-endian systems with:")
+        for f in compatibility.big_endian:
+            print_indented(8, f)
+    else:
+        print("Unknown pixel format '%s' or family '%s'" % (args.format, args.family))
+
 def main(argv):
     parser = argparse.ArgumentParser()
     parser.set_defaults(func=lambda x: parser.print_help())
@@ -99,6 +115,13 @@ def main(argv):
         "document", description="Display pixel format family documentation")
     parser_document.add_argument("family")
     parser_document.set_defaults(func=document)
+
+    parser_find_compatible = subparsers.add_parser(
+        "find-compatible",
+        description="Find all formats from a family that are compatible with the given format.")
+    parser_find_compatible.add_argument("format")
+    parser_find_compatible.add_argument("family")
+    parser_find_compatible.set_defaults(func=find_compatible)
 
     args = parser.parse_args(argv[1:])
 

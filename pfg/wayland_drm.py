@@ -24,6 +24,53 @@ import re
 
 wl_drm_re = re.compile("WL_DRM_FORMAT_(?P<components>.*)")
 
+wl_drm_formats = [
+    "WL_DRM_FORMAT_C8",
+    "WL_DRM_FORMAT_RGB332",
+    "WL_DRM_FORMAT_BGR233",
+    "WL_DRM_FORMAT_XRGB4444",
+    "WL_DRM_FORMAT_XBGR4444",
+    "WL_DRM_FORMAT_RGBX4444",
+    "WL_DRM_FORMAT_BGRX4444",
+    "WL_DRM_FORMAT_ARGB4444",
+    "WL_DRM_FORMAT_ABGR4444",
+    "WL_DRM_FORMAT_RGBA4444",
+    "WL_DRM_FORMAT_BGRA4444",
+    "WL_DRM_FORMAT_XRGB1555",
+    "WL_DRM_FORMAT_XBGR1555",
+    "WL_DRM_FORMAT_RGBX5551",
+    "WL_DRM_FORMAT_BGRX5551",
+    "WL_DRM_FORMAT_ARGB1555",
+    "WL_DRM_FORMAT_ABGR1555",
+    "WL_DRM_FORMAT_RGBA5551",
+    "WL_DRM_FORMAT_BGRA5551",
+    "WL_DRM_FORMAT_RGB565",
+    "WL_DRM_FORMAT_BGR565",
+    "WL_DRM_FORMAT_RGB888",
+    "WL_DRM_FORMAT_BGR888",
+    "WL_DRM_FORMAT_XRGB8888",
+    "WL_DRM_FORMAT_XBGR8888",
+    "WL_DRM_FORMAT_RGBX8888",
+    "WL_DRM_FORMAT_BGRX8888",
+    "WL_DRM_FORMAT_ARGB8888",
+    "WL_DRM_FORMAT_ABGR8888",
+    "WL_DRM_FORMAT_RGBA8888",
+    "WL_DRM_FORMAT_BGRA8888",
+    "WL_DRM_FORMAT_XRGB2101010",
+    "WL_DRM_FORMAT_XBGR2101010",
+    "WL_DRM_FORMAT_RGBX1010102",
+    "WL_DRM_FORMAT_BGRX1010102",
+    "WL_DRM_FORMAT_ARGB2101010",
+    "WL_DRM_FORMAT_ABGR2101010",
+    "WL_DRM_FORMAT_RGBA1010102",
+    "WL_DRM_FORMAT_BGRA1010102",
+    "WL_DRM_FORMAT_YUYV",
+    "WL_DRM_FORMAT_YVYU",
+    "WL_DRM_FORMAT_UYVY",
+    "WL_DRM_FORMAT_VYUY",
+    "WL_DRM_FORMAT_AYUV",
+    ]
+
 def rgba_bits_to_memory(components):
     return util.native_to_memory_le(components)
 
@@ -49,6 +96,9 @@ def describe(format_str):
             native = None,
             memory_le = memory,
             memory_be = memory)
+
+def describe_all():
+    return {format_str:describe(format_str) for format_str in wl_drm_formats}
 
 def document():
     return util.read_documentation("wayland_drm.md")
