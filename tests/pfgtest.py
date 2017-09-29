@@ -32,9 +32,11 @@ class TestCase(unittest.TestCase):
     def assertFindCompatibleMatches(self, format_str, family_str,
                                     everywhere, little_endian, big_endian):
         compatibility = pfg.find_compatible(format_str, family_str)
-        self.assertEqual(everywhere, compatibility.everywhere)
-        self.assertEqual(little_endian, compatibility.little_endian)
-        self.assertEqual(big_endian, compatibility.big_endian)
+        # assertCountEqual checks for the existence of items regardless
+        # of order (and has a misleading name...)
+        self.assertCountEqual(everywhere, compatibility.everywhere)
+        self.assertCountEqual(little_endian, compatibility.little_endian)
+        self.assertCountEqual(big_endian, compatibility.big_endian)
 
     def assertHasDocumentationFor(self, family):
         documentation = pfg.document(family)
