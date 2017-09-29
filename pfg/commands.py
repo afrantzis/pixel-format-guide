@@ -19,6 +19,7 @@
 #   Alexandros Frantzis <alexandros.frantzis@collabora.com>
 
 from . import cairo
+from . import directfb
 from . import opengl
 from . import pixman
 from . import sdl2
@@ -29,6 +30,7 @@ from .format_compatibility import FormatCompatibility
 
 families = [
     cairo,
+    directfb,
     opengl,
     pixman,
     sdl2,
