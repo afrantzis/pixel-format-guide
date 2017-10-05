@@ -26,7 +26,5 @@ class ListFamiliesTest(unittest.TestCase):
         families = pfg.list_families()
 
         for pfg_family in pfg.commands.families:
-            if pfg_family.document() is not None:
-                family = pfg_family.__name__.replace("pfg.", "")
-                self.assertIn(family, families)
-
+            family = pfg_family.__name__.replace("pfg.", "")
+            self.assertIn(family, families)
