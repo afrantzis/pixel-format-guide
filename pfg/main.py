@@ -109,7 +109,11 @@ def list_families(args):
         print(f)
 
 def list_formats(args):
-    for f in commands.list_formats(args.family):
+    formats = commands.list_formats(args.family)
+    if not formats:
+        raise InvalidArgumentError("Unknown pixel format family '%s'" % args.family)
+
+    for f in formats:
         print(f)
 
 def main(argv):

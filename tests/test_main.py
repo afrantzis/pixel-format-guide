@@ -160,3 +160,12 @@ class MainTest(unittest.TestCase):
 
         for f in formats:
             self.assertIn(f, output)
+
+    def test_reports_unknown_family_for_list_formats(self):
+        pfg.main(["pfg", "list-formats", "unknown_family"])
+        formats = pfg.list_formats("unknown_family")
+
+        error = self.get_stderr_without_output()
+
+        self.assertIn("Unknown", error)
+        self.assertIn("unknown_family", error)
