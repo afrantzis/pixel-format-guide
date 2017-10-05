@@ -23,6 +23,9 @@ import argparse
 from . import commands
 from . import util
 
+class InvalidArgumentError(ValueError):
+    pass
+
 def find_all(s, m):
     return [i for i, c in enumerate(s) if c == m]
 
@@ -64,40 +67,42 @@ def print_native(text, native, hide_bit_indices):
 
 def describe(args):
     description = commands.describe(args.format)
-    if description:
-        print("Format:               %s" % args.format)
-        if description.native:
-            print("Described as:         Native %d-bit type" % len(description.native))
-            print_native("Native type:          ", description.native, args.hide_bit_indices)
-        else:
-            print("Described as:         Bytes in memory")
-        print_memory("Memory little-endian: ", description.memory_le, args.hide_bit_indices)
-        print_memory("Memory big-endian:    ", description.memory_be, args.hide_bit_indices)
+    if not description:
+        raise InvalidArgumentError("Unknown pixel format '%s'" % args.format)
+
+    print("Format:               %s" % args.format)
+    if description.native:
+        print("Described as:         Native %d-bit type" % len(description.native))
+        print_native("Native type:          ", description.native, args.hide_bit_indices)
     else:
-        print("Unknown pixel format '%s'" % args.format)
+        print("Described as:         Bytes in memory")
+    print_memory("Memory little-endian: ", description.memory_le, args.hide_bit_indices)
+    print_memory("Memory big-endian:    ", description.memory_be, args.hide_bit_indices)
 
 def document(args):
     doc = commands.document(args.family)
-    if doc:
-        print(doc)
-    else:
-        print("Unknown or undocumented pixel format family '%s'" % args.family)
+    if not doc:
+        raise InvalidArgumentError(
+            "Unknown or undocumented pixel format family '%s'" % args.family)
+
+    print(doc)
 
 def find_compatible(args):
     compatibility = commands.find_compatible(args.format, args.family)
-    if compatibility:
-        print("Format: %s" % args.format)
-        print("Is compatible on all systems with:")
-        for f in compatibility.everywhere:
-            print_indented(8, f)
-        print("Is compatible on little-endian systems with:")
-        for f in compatibility.little_endian:
-            print_indented(8, f)
-        print("Is compatible on big-endian systems with:")
-        for f in compatibility.big_endian:
-            print_indented(8, f)
-    else:
-        print("Unknown pixel format '%s' or family '%s'" % (args.format, args.family))
+    if not compatibility:
+        raise InvalidArgumentError(
+            "Unknown pixel format '%s' or family '%s'" % (args.format, args.family))
+
+    print("Format: %s" % args.format)
+    print("Is compatible on all systems with:")
+    for f in compatibility.everywhere:
+        print_indented(8, f)
+    print("Is compatible on little-endian systems with:")
+    for f in compatibility.little_endian:
+        print_indented(8, f)
+    print("Is compatible on big-endian systems with:")
+    for f in compatibility.big_endian:
+        print_indented(8, f)
 
 def list_families(args):
     for f in commands.list_families():
@@ -142,4 +147,7 @@ def main(argv):
 
     args = parser.parse_args(argv[1:])
 
-    args.func(args)
+    try:
+        args.func(args)
+    except InvalidArgumentError as e:
+        print("%s" % e, file=sys.stderr)

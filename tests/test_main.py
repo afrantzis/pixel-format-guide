@@ -35,16 +35,32 @@ def remove_subscripts(s):
 class MainTest(unittest.TestCase):
     def setUp(self):
         self.orig_stdout, sys.stdout = sys.stdout, StringIO()
+        self.orig_stderr, sys.stderr = sys.stderr, StringIO()
 
     def tearDown(self):
         sys.stdout = self.orig_stdout
+        sys.stderr = self.orig_stderr
+
+    def get_stdout_stderr(self):
+        sys.stdout.seek(0)
+        sys.stderr.seek(0)
+        return sys.stdout.read(), sys.stderr.read()
+
+    def get_stdout_without_error(self):
+        output, error = self.get_stdout_stderr()
+        self.assertEqual("", error)
+        return output
+
+    def get_stderr_without_output(self):
+        output, error = self.get_stdout_stderr()
+        self.assertEqual("", output)
+        return error
 
     def test_describes_format_with_native_description(self):
         pfg.main(["pfg.py", "describe", "VK_FORMAT_R5G6B5_UNORM_PACK16"])
         description = pfg.describe("VK_FORMAT_R5G6B5_UNORM_PACK16")
 
-        sys.stdout.seek(0)
-        output = sys.stdout.read()
+        output = self.get_stdout_without_error()
 
         self.assertIn(native_to_str(description.native), output)
         self.assertIn(memory_to_str(description.memory_le), output)
@@ -55,8 +71,7 @@ class MainTest(unittest.TestCase):
         pfg.main(["pfg.py", "describe", "VK_FORMAT_R8G8A8_UNORM"])
         description = pfg.describe("VK_FORMAT_R8G8A8_UNORM")
 
-        sys.stdout.seek(0)
-        output = sys.stdout.read()
+        output = self.get_stdout_without_error()
 
         self.assertIn(memory_to_str(description.memory_le), output)
         self.assertIn(memory_to_str(description.memory_be), output)
@@ -66,8 +81,7 @@ class MainTest(unittest.TestCase):
         pfg.main(["pfg.py", "describe", "--hide-bit-indices", "VK_FORMAT_R5G6B5_UNORM_PACK16"])
         description = pfg.describe("VK_FORMAT_R5G6B5_UNORM_PACK16")
 
-        sys.stdout.seek(0)
-        output = sys.stdout.read()
+        output = self.get_stdout_without_error()
 
         self.assertIn(remove_subscripts(native_to_str(description.native)), output)
         self.assertIn(remove_subscripts(memory_to_str(description.memory_le)), output)
@@ -76,36 +90,33 @@ class MainTest(unittest.TestCase):
 
     def test_reports_unknown_format(self):
         pfg.main(["pfg", "describe", "unknown_format"])
-        sys.stdout.seek(0)
-        output = sys.stdout.read()
 
-        self.assertIn("Unknown", output)
-        self.assertIn("unknown_format", output)
+        error = self.get_stderr_without_output()
+
+        self.assertIn("Unknown", error)
+        self.assertIn("unknown_format", error)
 
     def test_displays_family_documentation(self):
         pfg.main(["pfg", "document", "vulkan"])
         doc = pfg.document("vulkan")
 
-        sys.stdout.seek(0)
-        output = sys.stdout.read()
+        output = self.get_stdout_without_error()
 
         self.assertEqual(doc + "\n", output)
 
     def test_reports_no_family_documentation(self):
         pfg.main(["pfg", "document", "unknown_family"])
 
-        sys.stdout.seek(0)
-        output = sys.stdout.read()
+        error = self.get_stderr_without_output()
 
-        self.assertIn("Unknown", output)
-        self.assertIn("unknown_family", output)
+        self.assertIn("Unknown", error)
+        self.assertIn("unknown_family", error)
 
     def test_finds_compatible_formats(self):
         pfg.main(["pfg", "find-compatible", "VK_FORMAT_B8G8R8A8_UNORM", "opengl"])
         compatibility = pfg.find_compatible("VK_FORMAT_B8G8R8A8_UNORM", "opengl")
 
-        sys.stdout.seek(0)
-        output = sys.stdout.read()
+        output = self.get_stdout_without_error()
 
         for f in compatibility.everywhere:
             self.assertIn(f, output)
@@ -117,29 +128,26 @@ class MainTest(unittest.TestCase):
     def test_reports_unknown_format_for_find_compatible(self):
         pfg.main(["pfg", "find-compatible", "VK_FORMAT_B8G8R8A8", "opengl"])
 
-        sys.stdout.seek(0)
-        output = sys.stdout.read()
+        error = self.get_stderr_without_output()
 
-        self.assertIn("Unknown", output)
-        self.assertIn("VK_FORMAT_B8G8R8A8", output)
-        self.assertIn("opengl", output)
+        self.assertIn("Unknown", error)
+        self.assertIn("VK_FORMAT_B8G8R8A8", error)
+        self.assertIn("opengl", error)
 
     def test_reports_unknown_family_for_find_compatible(self):
         pfg.main(["pfg", "find-compatible", "VK_FORMAT_B8G8R8A8_UNORM", "unknown_family"])
 
-        sys.stdout.seek(0)
-        output = sys.stdout.read()
+        error = self.get_stderr_without_output()
 
-        self.assertIn("Unknown", output)
-        self.assertIn("VK_FORMAT_B8G8R8A8_UNORM", output)
-        self.assertIn("unknown_family", output)
+        self.assertIn("Unknown", error)
+        self.assertIn("VK_FORMAT_B8G8R8A8_UNORM", error)
+        self.assertIn("unknown_family", error)
 
     def test_lists_families(self):
         pfg.main(["pfg", "list-families"])
         families = pfg.list_families()
 
-        sys.stdout.seek(0)
-        output = sys.stdout.read()
+        output = self.get_stdout_without_error()
 
         for f in families:
             self.assertIn(f, output)
@@ -148,8 +156,7 @@ class MainTest(unittest.TestCase):
         pfg.main(["pfg", "list-formats", "cairo"])
         formats = pfg.list_formats("cairo")
 
-        sys.stdout.seek(0)
-        output = sys.stdout.read()
+        output = self.get_stdout_without_error()
 
         for f in formats:
             self.assertIn(f, output)
