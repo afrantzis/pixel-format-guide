@@ -18,5 +18,12 @@
 # Authors:
 #   Alexandros Frantzis <alexandros.frantzis@collabora.com>
 
-from .commands import describe, document, find_compatible, list_families, list_formats
-from .main import main
+import unittest
+import pfg
+
+class ListFormatsTest(unittest.TestCase):
+    def test_lists_formats(self):
+        for pfg_family in pfg.commands.families:
+            family = pfg_family.__name__.replace("pfg.", "")
+            formats = pfg.list_formats(family)
+            self.assertGreater(len(formats), 0)

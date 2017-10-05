@@ -143,3 +143,13 @@ class MainTest(unittest.TestCase):
 
         for f in families:
             self.assertIn(f, output)
+
+    def test_lists_formats(self):
+        pfg.main(["pfg", "list-formats", "cairo"])
+        formats = pfg.list_formats("cairo")
+
+        sys.stdout.seek(0)
+        output = sys.stdout.read()
+
+        for f in formats:
+            self.assertIn(f, output)

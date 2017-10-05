@@ -103,6 +103,10 @@ def list_families(args):
     for f in commands.list_families():
         print(f)
 
+def list_formats(args):
+    for f in commands.list_formats(args.family):
+        print(f)
+
 def main(argv):
     parser = argparse.ArgumentParser()
     parser.set_defaults(func=lambda x: parser.print_help())
@@ -130,6 +134,11 @@ def main(argv):
     parser_list_families = subparsers.add_parser(
         "list-families", description="List all supported pixel format families")
     parser_list_families.set_defaults(func=list_families)
+
+    parser_list_formats = subparsers.add_parser(
+        "list-formats", description="List all supported pixel formats for a family")
+    parser_list_formats.add_argument("family")
+    parser_list_formats.set_defaults(func=list_formats)
 
     args = parser.parse_args(argv[1:])
 

@@ -15,6 +15,7 @@ Run with:
      $ python3 -m pfg find-compatible [FORMAT] [FAMILY]
      $ python3 -m pfg document [FAMILY]
      $ python3 -m pfg list-families
+     $ python3 -m pfg list-formats [FAMILY]
 
 Examples of using the `describe` command:
 
@@ -98,6 +99,13 @@ Examples of using the `list-families` command:
     cairo
     opengl
     pixman
+    ...
+
+Examples of using the `list-formats` command:
+
+    $ python3 -m pfg list-formats cairo
+    CAIRO_FORMAT_ARGB32
+    CAIRO_FORMAT_RGB24
     ...
 
 # Contributing to the Pixel Format Guide Tool

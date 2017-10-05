@@ -89,3 +89,10 @@ def find_compatible(format_str, family_str):
 
 def list_families():
     return [_family_name_from_module(f) for f in families]
+
+def list_formats(family_str):
+    family = _family_module_from_name(family_str)
+    if family is None:
+        return []
+
+    return family.formats()
