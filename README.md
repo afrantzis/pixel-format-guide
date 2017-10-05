@@ -130,6 +130,6 @@ following:
 * Import the `family` module and add it to the list of `families` in
   `pfg/commands.py`.
 
-* Run `python3 -m unittest discover` and ensure all tests pass.
-
 * Add a link to the new family document file in `docs/index.md`.
+
+* Run `python3 -m unittest discover` and ensure all tests pass.
