@@ -87,8 +87,8 @@ def describe(format_str):
                 memory_le = util.native_to_memory_le(bits),
                 memory_be = util.native_to_memory_be(bits))
 
-def describe_all():
-    return {format_str:describe(format_str) for format_str in sdl2_formats}
+def formats():
+    return sdl2_formats
 
 def document():
     return util.read_documentation("sdl2.md")

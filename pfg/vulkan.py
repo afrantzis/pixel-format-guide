@@ -28,7 +28,30 @@ vk_re = re.compile("VK_FORMAT_(?P<components>.*)_(" + r + ")(?P<pack>_PACK\d+)?"
 def gen_vk_formats(template, spec):
     return [t % s for t in template for s in spec]
 
-def vk_formats():
+def describe(format_str):
+    match = vk_re.match(format_str)
+
+    if not match:
+        return None
+
+    components_str = match.group("components")
+    components, sizes = util.parse_components_with_mixed_sizes(components_str)
+    bits = util.expand_components(components, sizes)
+
+    packed = match.group("pack") is not None
+
+    if packed:
+        return FormatDescription(
+            native = bits,
+            memory_le = util.native_to_memory_le(bits),
+            memory_be = util.native_to_memory_be(bits))
+    else:
+        return FormatDescription(
+            native = None,
+            memory_le = util.split_bytes_le(bits, sizes[0] // 8),
+            memory_be = util.split_bytes_be(bits, sizes[0] // 8))
+
+def formats():
     formats = [
         "VK_FORMAT_R4G4_UNORM_PACK8",
         "VK_FORMAT_R4G4B4A4_UNORM_PACK16",
@@ -88,32 +111,6 @@ def vk_formats():
         ["UINT", "SINT", "SFLOAT"])
 
     return formats
-
-def describe(format_str):
-    match = vk_re.match(format_str)
-
-    if not match:
-        return None
-
-    components_str = match.group("components")
-    components, sizes = util.parse_components_with_mixed_sizes(components_str)
-    bits = util.expand_components(components, sizes)
-
-    packed = match.group("pack") is not None
-
-    if packed:
-        return FormatDescription(
-            native = bits,
-            memory_le = util.native_to_memory_le(bits),
-            memory_be = util.native_to_memory_be(bits))
-    else:
-        return FormatDescription(
-            native = None,
-            memory_le = util.split_bytes_le(bits, sizes[0] // 8),
-            memory_be = util.split_bytes_be(bits, sizes[0] // 8))
-
-def describe_all():
-    return {format_str:describe(format_str) for format_str in vk_formats()}
 
 def document():
     return util.read_documentation("vulkan.md")

@@ -68,8 +68,8 @@ def describe(format_str):
         memory_le = memory_le,
         memory_be = memory_be)
 
-def describe_all():
-    return {format_str:describe(format_str) for format_str in cairo_formats}
+def formats():
+    return cairo_formats
 
 def document():
     return util.read_documentation("cairo.md")

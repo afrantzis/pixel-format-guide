@@ -109,8 +109,11 @@ following:
   in `tests/test_family.py`.  Use one of the existing test files as a
   template.
 
-* Implement the `describe` and `describe_all` methods in a new
-  `pfg/family.py` file. Use one of the existing files as a template.
+* Implement the `describe` method in a new `pfg/family.py` file. Use one of the
+  existing files as a template.
+
+* Implement the `formats` method in the `pfg/family.py` file. Use one of the
+  existing files as a template.
 
 * Implement the `document` method in the `pfg/family.py` file, by creating a
   `docs/family.md` and returning its contents (use the

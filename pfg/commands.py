@@ -71,7 +71,7 @@ def find_compatible(format_str, family_str):
     if family is None:
         return None
 
-    family_descriptions = family.describe_all()
+    family_descriptions = {f:family.describe(f) for f in family.formats()}
 
     compatibility = FormatCompatibility()
 

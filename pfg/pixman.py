@@ -101,8 +101,8 @@ def describe(format_str):
         memory_le = memory_le,
         memory_be = memory_be)
 
-def describe_all():
-    return {format_str:describe(format_str) for format_str in pixman_formats}
+def formats():
+    return pixman_formats
 
 def document():
     return util.read_documentation("pixman.md")

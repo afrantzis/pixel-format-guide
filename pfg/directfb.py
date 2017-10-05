@@ -107,8 +107,8 @@ def describe(format_str):
             memory_le = memory_le,
             memory_be = memory_be)
 
-def describe_all():
-    return {format_str:describe(format_str) for format_str in directfb_formats}
+def formats():
+    return directfb_formats
 
 def document():
     return util.read_documentation("directfb.md")

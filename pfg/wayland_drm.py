@@ -97,8 +97,8 @@ def describe(format_str):
             memory_le = memory,
             memory_be = memory)
 
-def describe_all():
-    return {format_str:describe(format_str) for format_str in wl_drm_formats}
+def formats():
+    return wl_drm_formats
 
 def document():
     return util.read_documentation("wayland_drm.md")

@@ -116,8 +116,8 @@ def describe(format_str):
         memory_le = memory,
         memory_be = memory)
 
-def describe_all():
-    return {format_str:describe(format_str) for format_str in v4l2_formats}
+def formats():
+    return v4l2_formats
 
 def document():
     return util.read_documentation("v4l2.md")
