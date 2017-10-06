@@ -85,5 +85,20 @@ class VulkanTest(TestCase):
                 "VK_FORMAT_A8B8G8R8_SRGB_PACK32"],
             big_endian = [])
 
+        self.assertFindCompatibleMatches(
+            format_str = "PIXMAN_x8r8g8b8",
+            family_str = "vulkan",
+            everywhere = [],
+            little_endian = [
+                "VK_FORMAT_B8G8R8A8_UNORM",
+                "VK_FORMAT_B8G8R8A8_SNORM",
+                "VK_FORMAT_B8G8R8A8_USCALED",
+                "VK_FORMAT_B8G8R8A8_SSCALED",
+                "VK_FORMAT_B8G8R8A8_UINT",
+                "VK_FORMAT_B8G8R8A8_SINT",
+                "VK_FORMAT_B8G8R8A8_SRGB"],
+            big_endian = [],
+            treat_x_as_a = True);
+
     def test_documentation(self):
         self.assertHasDocumentationFor("vulkan")

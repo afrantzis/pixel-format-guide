@@ -88,7 +88,9 @@ def document(args):
     print(doc)
 
 def find_compatible(args):
-    compatibility = commands.find_compatible(args.format, args.family)
+    compatibility = commands.find_compatible(
+        args.format, args.family, treat_x_as_a=args.treat_x_as_a)
+
     if not compatibility:
         raise InvalidArgumentError(
             "Unknown pixel format '%s' or family '%s'" % (args.format, args.family))
@@ -136,6 +138,8 @@ def main(argv):
     parser_find_compatible = subparsers.add_parser(
         "find-compatible",
         description="Find all formats from a family that are compatible with the given format.")
+    parser_find_compatible.add_argument(
+        "--treat-x-as-a", action='store_true', help="Treat X as A when comparing formats")
     parser_find_compatible.add_argument("format")
     parser_find_compatible.add_argument("family")
     parser_find_compatible.set_defaults(func=find_compatible)

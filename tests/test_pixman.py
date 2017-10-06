@@ -114,5 +114,18 @@ class PixmanTest(TestCase):
                 "PIXMAN_a8r8g8b8_sRGB"],
             big_endian = ["PIXMAN_b8g8r8a8"])
 
+        self.assertFindCompatibleMatches(
+            format_str = "VK_FORMAT_B8G8R8A8_UNORM",
+            family_str = "pixman",
+            everywhere = [],
+            little_endian = [
+                "PIXMAN_a8r8g8b8",
+                "PIXMAN_a8r8g8b8_sRGB",
+                "PIXMAN_x8r8g8b8"],
+            big_endian = [
+                "PIXMAN_b8g8r8a8",
+                "PIXMAN_b8g8r8x8"],
+            treat_x_as_a = True)
+
     def test_documentation(self):
         self.assertHasDocumentationFor("pixman")

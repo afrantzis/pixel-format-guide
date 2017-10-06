@@ -76,5 +76,15 @@ class SDL2Test(TestCase):
             little_endian = ["SDL_PIXELFORMAT_ARGB8888"],
             big_endian = ["SDL_PIXELFORMAT_BGRA8888"])
 
+        self.assertFindCompatibleMatches(
+            format_str = "VK_FORMAT_B8G8R8A8_UNORM",
+            family_str = "sdl2",
+            everywhere = ["SDL_PIXELFORMAT_BGRA32"],
+            little_endian = ["SDL_PIXELFORMAT_ARGB8888"],
+            big_endian = [
+                "SDL_PIXELFORMAT_BGRA8888",
+                "SDL_PIXELFORMAT_BGRX8888"],
+            treat_x_as_a = True)
+
     def test_documentation(self):
         self.assertHasDocumentationFor("sdl2")

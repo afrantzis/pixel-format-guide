@@ -30,8 +30,9 @@ class TestCase(unittest.TestCase):
         self.assertEqual(memory_be, fd.memory_be)
 
     def assertFindCompatibleMatches(self, format_str, family_str,
-                                    everywhere, little_endian, big_endian):
-        compatibility = pfg.find_compatible(format_str, family_str)
+                                    everywhere, little_endian, big_endian,
+                                    treat_x_as_a=False):
+        compatibility = pfg.find_compatible(format_str, family_str, treat_x_as_a)
         # assertCountEqual checks for the existence of items regardless
         # of order (and has a misleading name...)
         self.assertCountEqual(everywhere, compatibility.everywhere)

@@ -27,6 +27,7 @@ from . import v4l2
 from . import vulkan
 from . import wayland_drm
 from .format_compatibility import FormatCompatibility
+from .format_description import FormatDescription
 
 families = [
     cairo,
@@ -50,6 +51,14 @@ def _family_module_from_name(family_str):
 
     return None
 
+def _convert_x_to_a(desc):
+    if not desc: return None
+
+    return FormatDescription(
+        native = [bit.replace('X', 'A') for bit in desc.native] if desc.native else None,
+        memory_le = [[bit.replace('X', 'A') for bit in byte] for byte in desc.memory_le],
+        memory_be = [[bit.replace('X', 'A') for bit in byte] for byte in desc.memory_be])
+
 def describe(format_str):
     for family in families:
         description = family.describe(format_str)
@@ -62,7 +71,7 @@ def document(family_str):
     family = _family_module_from_name(family_str)
     return family.document() if family is not None else None
 
-def find_compatible(format_str, family_str):
+def find_compatible(format_str, family_str, treat_x_as_a=False):
     description = describe(format_str)
     if description is None:
         return None
@@ -72,6 +81,10 @@ def find_compatible(format_str, family_str):
         return None
 
     family_descriptions = {f:family.describe(f) for f in family.formats()}
+
+    if treat_x_as_a:
+        description = _convert_x_to_a(description)
+        family_descriptions = {f:_convert_x_to_a(d) for f,d in family_descriptions.items()}
 
     compatibility = FormatCompatibility()
 

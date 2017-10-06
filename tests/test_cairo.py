@@ -88,5 +88,13 @@ class CairoTest(TestCase):
             little_endian = ["CAIRO_FORMAT_ARGB32"],
             big_endian = [])
 
+        self.assertFindCompatibleMatches(
+            format_str = "VK_FORMAT_B8G8R8A8_UNORM",
+            family_str = "cairo",
+            everywhere = [],
+            little_endian = ["CAIRO_FORMAT_ARGB32", "CAIRO_FORMAT_RGB24"],
+            big_endian = [],
+            treat_x_as_a = True)
+
     def test_documentation(self):
         self.assertHasDocumentationFor("cairo")

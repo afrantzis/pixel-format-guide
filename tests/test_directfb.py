@@ -134,5 +134,13 @@ class DirectFBTest(TestCase):
             little_endian = ["DSPF_ARGB", "DSPF_AiRGB"],
             big_endian = [])
 
+        self.assertFindCompatibleMatches(
+            format_str = "VK_FORMAT_B8G8R8A8_UNORM",
+            family_str = "directfb",
+            everywhere = [],
+            little_endian = ["DSPF_ARGB", "DSPF_AiRGB", "DSPF_RGB32"],
+            big_endian = [],
+            treat_x_as_a = True)
+
     def test_documentation(self):
         self.assertHasDocumentationFor("directfb")

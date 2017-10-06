@@ -12,7 +12,7 @@ Development of the Pixel Format Guide is sponsored by [Collabora Ltd](https://ww
 Run with:
 
      $ python3 -m pfg describe [OPTIONS...] [FORMAT]
-     $ python3 -m pfg find-compatible [FORMAT] [FAMILY]
+     $ python3 -m pfg find-compatible [OPTIONS...] [FORMAT] [FAMILY]
      $ python3 -m pfg document [FAMILY]
      $ python3 -m pfg list-families
      $ python3 -m pfg list-formats [FAMILY]
@@ -82,6 +82,16 @@ Examples of using the `find-compatible` command:
             PIXMAN_b5g6r5
     Is compatible on little-endian systems with:
     Is compatible on big-endian systems with:
+
+    $ python3 -m pfg find-compatible --treat-x-as-a PIXMAN_x8r8g8b8 wayland_drm
+    Format: PIXMAN_x8r8g8b8
+    Is compatible on all systems with:
+    Is compatible on little-endian systems with:
+            WL_DRM_FORMAT_XRGB8888
+            WL_DRM_FORMAT_ARGB8888
+    Is compatible on big-endian systems with:
+            WL_DRM_FORMAT_BGRX8888
+            WL_DRM_FORMAT_BGRA8888
 
 Examples of using the `document` command:
 

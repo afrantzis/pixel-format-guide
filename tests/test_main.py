@@ -125,6 +125,22 @@ class MainTest(unittest.TestCase):
         for f in compatibility.big_endian:
             self.assertIn(f, output)
 
+    def test_finds_compatible_formats_treating_x_as_a(self):
+        pfg.main([
+            "pfg", "find-compatible", "--treat-x-as-a",
+            "VK_FORMAT_B8G8R8A8_UNORM", "wayland_drm"])
+        compatibility = pfg.find_compatible(
+            "VK_FORMAT_B8G8R8A8_UNORM", "wayland_drm", treat_x_as_a=True)
+
+        output = self.get_stdout_without_error()
+
+        for f in compatibility.everywhere:
+            self.assertIn(f, output)
+        for f in compatibility.little_endian:
+            self.assertIn(f, output)
+        for f in compatibility.big_endian:
+            self.assertIn(f, output)
+
     def test_reports_unknown_format_for_find_compatible(self):
         pfg.main(["pfg", "find-compatible", "VK_FORMAT_B8G8R8A8", "opengl"])
 

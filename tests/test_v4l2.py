@@ -100,5 +100,13 @@ class V4L2Test(TestCase):
             little_endian = [],
             big_endian = [])
 
+        self.assertFindCompatibleMatches(
+            format_str = "VK_FORMAT_B8G8R8A8_UNORM",
+            family_str = "v4l2",
+            everywhere = ["V4L2_PIX_FMT_ABGR32", "V4L2_PIX_FMT_XBGR32"],
+            little_endian = [],
+            big_endian = [],
+            treat_x_as_a = True)
+
     def test_documentation(self):
         self.assertHasDocumentationFor("v4l2")
