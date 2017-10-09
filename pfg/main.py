@@ -44,15 +44,15 @@ def print_memory(text, memory, hide_bit_indices):
 
     spaces = find_all(memory_str, " ")
 
-    header_byte[0] = "0";
-    header_ml[0] = "M";
+    header_byte[0] = "0"
+    header_ml[0] = "M"
 
     for i, p in enumerate(spaces):
         header_byte[p + 1] = str(i + 1)
-        header_ml[p - 1] = "L";
-        header_ml[p + 1] = "M";
+        header_ml[p - 1] = "L"
+        header_ml[p + 1] = "M"
 
-    header_ml[-1] = "L";
+    header_ml[-1] = "L"
 
     print(text + "".join(header_byte).strip())
     print_indented(len(text), "".join(header_ml).strip())
@@ -63,7 +63,7 @@ def print_native(text, native, hide_bit_indices):
     if hide_bit_indices:
         native_str = remove_subscripts(native_str)
     print(text + "M" + " " * (len(native_str) - 2) + "L")
-    print_indented(len(text), native_str);
+    print_indented(len(text), native_str)
 
 def describe(args):
     description = commands.describe(args.format)

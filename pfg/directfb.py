@@ -67,10 +67,10 @@ def normalize_components_sizes(components_str, sizes_str):
     total_size = sum((int(s) for s in sizes_str))
 
     if total_size > 8 and total_size < 16:
-        components_str = "X" + components_str;
+        components_str = "X" + components_str
         sizes_str = str(16 - total_size) + sizes_str
     elif total_size > 16 and total_size < 24:
-        components_str = "X" + components_str;
+        components_str = "X" + components_str
         sizes_str = str(24 - total_size) + sizes_str
 
     if len(sizes_str) > len(components_str):

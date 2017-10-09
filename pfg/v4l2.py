@@ -57,9 +57,9 @@ def describe_bgr666():
 # Normalize bits string to contain bit values for all components
 def normalize_sizes_str(components_str, sizes_str):
     if sizes_str == "32":
-        sizes_str = "8888";
+        sizes_str = "8888"
     elif sizes_str == "24":
-        sizes_str = "888";
+        sizes_str = "888"
 
     # The size of the A/X component is not explicitly specified; we need to
     # infer it from the components, the specified bits and the size of the

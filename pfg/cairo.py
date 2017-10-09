@@ -50,7 +50,7 @@ def describe(format_str):
         sizes_str = str(component_size) * len(components_str)
 
     if total_size > 16 and total_size < 32:
-        components_str = "X" + components_str;
+        components_str = "X" + components_str
         sizes_str = str(32 - total_size) + sizes_str
 
     components, sizes = util.parse_components_with_separate_sizes(components_str + sizes_str)

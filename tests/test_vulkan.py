@@ -98,7 +98,7 @@ class VulkanTest(TestCase):
                 "VK_FORMAT_B8G8R8A8_SINT",
                 "VK_FORMAT_B8G8R8A8_SRGB"],
             big_endian = [],
-            treat_x_as_a = True);
+            treat_x_as_a = True)
 
     def test_documentation(self):
         self.assertHasDocumentationFor("vulkan")

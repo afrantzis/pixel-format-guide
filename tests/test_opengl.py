@@ -127,7 +127,7 @@ class OpenGLTest(TestCase):
                 "GL_BGRA_INTEGER+GL_UNSIGNED_BYTE",
                 "GL_BGRA_INTEGER+GL_BYTE"],
             big_endian = [],
-            treat_x_as_a = True);
+            treat_x_as_a = True)
 
     def test_documentation(self):
         self.assertHasDocumentationFor("opengl")
