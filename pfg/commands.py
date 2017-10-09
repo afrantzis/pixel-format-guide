@@ -23,6 +23,7 @@ from . import directfb
 from . import drm
 from . import opengl
 from . import pixman
+from . import qt
 from . import sdl2
 from . import v4l2
 from . import vulkan
@@ -36,6 +37,7 @@ families = [
     drm,
     opengl,
     pixman,
+    qt,
     sdl2,
     v4l2,
     vulkan,

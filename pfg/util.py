@@ -141,3 +141,6 @@ def read_documentation(docfile):
         doc = f.read()
 
     return doc
+
+def round_up_to_multiple(n, m):
+    return (n + m - 1) // m * m
