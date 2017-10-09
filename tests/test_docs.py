@@ -28,4 +28,4 @@ class DocsTest(unittest.TestCase):
         for pfg_family in pfg.commands.families:
             if pfg_family.document() is not None:
                 family = pfg_family.__name__.replace("pfg.", "")
-                self.assertIn(family + ".md",  index)
+                self.assertIn("(" + family + ".md)",  index)
