@@ -75,7 +75,7 @@ def parse_components_with_mixed_sizes(component_str):
     return components, sizes
 
 # Parse component strings of the form: RGBA8888
-def parse_components_with_separate_sizes(component_str):
+def parse_components_with_separate_sizes(component_str, group_16=False):
     components = []
     sizes = []
 
@@ -83,6 +83,8 @@ def parse_components_with_separate_sizes(component_str):
         if c.isdigit():
             if c == '0':
                 sizes[-1] = sizes[-1] * 10
+            elif group_16 and c == '6' and len(sizes) > 0 and sizes[-1] == 1:
+                sizes[-1] = sizes[-1] * 10 + 6
             else:
                 sizes.append(int(c))
         else:
