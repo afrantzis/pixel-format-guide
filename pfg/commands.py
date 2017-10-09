@@ -20,6 +20,7 @@
 
 from . import cairo
 from . import directfb
+from . import drm
 from . import opengl
 from . import pixman
 from . import sdl2
@@ -32,6 +33,7 @@ from .format_description import FormatDescription
 families = [
     cairo,
     directfb,
+    drm,
     opengl,
     pixman,
     sdl2,
