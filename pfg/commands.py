@@ -18,6 +18,7 @@
 # Authors:
 #   Alexandros Frantzis <alexandros.frantzis@collabora.com>
 
+from . import bgrabitmap
 from . import cairo
 from . import directfb
 from . import drm
@@ -32,6 +33,7 @@ from .format_compatibility import FormatCompatibility
 from .format_description import FormatDescription
 
 families = [
+    bgrabitmap,
     cairo,
     directfb,
     drm,
