@@ -26,6 +26,7 @@ from . import opengl
 from . import pixman
 from . import qt
 from . import sdl2
+from . import skia
 from . import v4l2
 from . import vulkan
 from . import wayland_drm
@@ -41,6 +42,7 @@ families = [
     pixman,
     qt,
     sdl2,
+    skia,
     v4l2,
     vulkan,
     wayland_drm

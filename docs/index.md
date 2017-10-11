@@ -55,6 +55,7 @@ help you understand the conventions used by the various pixel format families.
 * [Pixman pixel formats](pixman.md)
 * [Qt pixel formats](qt.md)
 * [SDL2 pixel formats](sdl2.md)
+* [Skia pixel formats](skia.md)
 * [V4L2 pixel formats](v4l2.md)
 * [Vulkan pixel formats](vulkan.md)
 * [Wayland-drm pixel formats](wayland_drm.md)
