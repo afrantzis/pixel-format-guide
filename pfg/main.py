@@ -76,8 +76,10 @@ def describe(args):
         print_native("Native type:          ", description.native, args.hide_bit_indices)
     else:
         print("Described as:         Bytes in memory")
-    print_memory("Memory little-endian: ", description.memory_le, args.hide_bit_indices)
-    print_memory("Memory big-endian:    ", description.memory_be, args.hide_bit_indices)
+    if description.memory_le:
+        print_memory("Memory little-endian: ", description.memory_le, args.hide_bit_indices)
+    if description.memory_be:
+        print_memory("Memory big-endian:    ", description.memory_be, args.hide_bit_indices)
 
 def document(args):
     doc = commands.document(args.family)

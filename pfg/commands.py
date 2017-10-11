@@ -62,8 +62,10 @@ def _convert_x_to_a(desc):
 
     return FormatDescription(
         native = [bit.replace('X', 'A') for bit in desc.native] if desc.native else None,
-        memory_le = [[bit.replace('X', 'A') for bit in byte] for byte in desc.memory_le],
-        memory_be = [[bit.replace('X', 'A') for bit in byte] for byte in desc.memory_be])
+        memory_le = [[bit.replace('X', 'A') for bit in byte] for byte in desc.memory_le]
+                    if desc.memory_le else None,
+        memory_be = [[bit.replace('X', 'A') for bit in byte] for byte in desc.memory_be]
+                    if desc.memory_be else None)
 
 def describe(format_str):
     for family in families:
