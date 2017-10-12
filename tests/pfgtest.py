@@ -23,11 +23,15 @@ import pfg
 from pfg import util
 
 class TestCase(unittest.TestCase):
-    def assertFormatMatches(self, format_str, native, memory_le, memory_be):
+    def assertFormatMatches(self, format_str, data_type, native, memory_le, memory_be):
         fd = pfg.describe(format_str)
+        self.assertEqual(data_type, fd.data_type)
         self.assertEqual(native, fd.native)
         self.assertEqual(memory_le, fd.memory_le)
         self.assertEqual(memory_be, fd.memory_be)
+
+    def assertFormatMatchesUnorm(self, format_str, native, memory_le, memory_be):
+        self.assertFormatMatches(format_str, "UNORM", native, memory_le, memory_be)
 
     def assertFindCompatibleMatches(self, format_str, family_str,
                                     everywhere, little_endian, big_endian,

@@ -22,20 +22,20 @@ from .pfgtest import TestCase, R, G, B, A, Y, U, V
 
 class WaylandDRMTest(TestCase):
     def test_rgba_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "WL_DRM_FORMAT_RGBA8888",
             native = None,
             memory_le = [A(7, 0), B(7, 0), G(7, 0), R(7, 0)],
             memory_be = [A(7, 0), B(7, 0), G(7, 0), R(7, 0)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "WL_DRM_FORMAT_ARGB2101010",
             native = None,
             memory_le = [B(7, 0), G(5, 0) + B(9, 8), R(3, 0) + G(9, 6), A(1, 0) + R(9, 4)],
             memory_be = [B(7, 0), G(5, 0) + B(9, 8), R(3, 0) + G(9, 6), A(1, 0) + R(9, 4)])
 
     def test_yuv_packed_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "WL_DRM_FORMAT_YUYV",
             native = None,
             memory_le = [Y(7, 0), U(7, 0), Y(7, 0), V(7, 0)],

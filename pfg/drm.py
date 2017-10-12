@@ -100,6 +100,7 @@ def describe(format_str):
         memory = rgba_bits_to_memory(bits)
 
     return FormatDescription(
+        data_type = "UNORM",
         native = None,
         memory_le = memory,
         memory_be = memory)

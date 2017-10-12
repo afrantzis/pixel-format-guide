@@ -29,6 +29,7 @@ def _qt_packed(components_str):
     bits = util.expand_components(components, sizes)
 
     return FormatDescription(
+        data_type = "UNORM",
         native = bits,
         memory_le = util.native_to_memory_le(bits),
         memory_be = util.native_to_memory_be(bits))
@@ -39,6 +40,7 @@ def _qt_array(components_str):
     memory = util.split_bytes(bits)
 
     return FormatDescription(
+        data_type = "UNORM",
         native = None,
         memory_le = memory,
         memory_be = memory)
@@ -49,6 +51,7 @@ def _qt_bit_lsb(components_str):
     memory = util.native_to_memory_byte_le(bits)
 
     return FormatDescription(
+        data_type = "UNORM",
         native = bits,
         memory_le = memory,
         memory_be = memory)
@@ -59,6 +62,7 @@ def _qt_bit_msb(components_str):
     memory = util.native_to_memory_byte_be(bits)
 
     return FormatDescription(
+        data_type = "UNORM",
         native = bits,
         memory_le = memory,
         memory_be = memory)

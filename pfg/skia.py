@@ -49,6 +49,7 @@ def describe(format_str):
         memory = util.native_to_memory_le(bits)
 
     return FormatDescription(
+        data_type = "SFLOAT" if "F" in format_str else "UNORM",
         native = None,
         memory_le = memory,
         memory_be = None)

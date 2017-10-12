@@ -22,13 +22,13 @@ from .pfgtest import TestCase, R, G, B, A, X, Rn, Gn, Bn, An
 
 class CairoTest(TestCase):
     def test_32bpp_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "CAIRO_FORMAT_ARGB32",
             native = A(7, 0) + R(7, 0) + G(7, 0) + B(7, 0),
             memory_le = [B(7, 0), G(7, 0), R(7, 0), A(7, 0)],
             memory_be = [A(7, 0), R(7, 0), G(7, 0), B(7, 0)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "CAIRO_FORMAT_RGB30",
             native = X(1, 0) + R(9, 0) + G(9, 0) + B(9, 0),
             memory_le = [
@@ -42,28 +42,28 @@ class CairoTest(TestCase):
                 G(5, 0) + B(9, 8),
                 B(7, 0)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "CAIRO_FORMAT_RGB24",
             native = X(7, 0) + R(7, 0) + G(7, 0) + B(7, 0),
             memory_le = [B(7, 0), G(7, 0), R(7, 0), X(7, 0)],
             memory_be = [X(7, 0), R(7, 0), G(7, 0), B(7, 0)])
 
     def test_16bpp_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "CAIRO_FORMAT_RGB16_565",
             native = R(4, 0) + G(5, 0) + B(4, 0),
             memory_le = [G(2, 0) + B(4, 0), R(4, 0) + G(5, 3)],
             memory_be = [R(4, 0) + G(5, 3), G(2, 0) + B(4, 0)])
 
     def test_8bpp_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "CAIRO_FORMAT_A8",
             native = A(7, 0),
             memory_le = [A(7, 0)],
             memory_be = [A(7, 0)])
 
     def test_1bpp_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "CAIRO_FORMAT_A1",
             native = A(0, 0),
             memory_le = [

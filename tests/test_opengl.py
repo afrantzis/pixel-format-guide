@@ -22,7 +22,7 @@ from .pfgtest import TestCase, R, G, B, A
 
 class OpenGLTest(TestCase):
     def test_non_packed_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "GL_RGBA+GL_UNSIGNED_BYTE",
             native = None,
             memory_le = [R(7, 0), G(7, 0), B(7, 0), A(7, 0)],
@@ -30,13 +30,14 @@ class OpenGLTest(TestCase):
 
     def test_non_packed_formats_with_multibyte_components(self):
         self.assertFormatMatches(
-            format_str = "GL_RGB+GL_UNSIGNED_SHORT",
+            format_str = "GL_RGB+GL_SHORT",
+            data_type = "SNORM",
             native = None,
             memory_le = [R(7, 0), R(15, 8), G(7, 0), G(15, 8), B(7, 0), B(15, 8)],
             memory_be = [R(15, 8), R(7, 0), G(15, 8), G(7, 0), B(15, 8), B(7, 0)])
 
     def test_packed_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "GL_BGRA+GL_UNSIGNED_INT_10_10_10_2",
             native = B(9, 0) + G(9, 0) + R(9, 0) + A(1, 0),
             memory_le = [
@@ -50,7 +51,7 @@ class OpenGLTest(TestCase):
                 G(3, 0) + R(9, 6),
                 R(5, 0) + A(1, 0)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "GL_RGBA+GL_UNSIGNED_INT_2_10_10_10_REV",
             native = A(1,0) + B(9,0) + G(9,0) + R(9,0),
             memory_le = [
@@ -65,19 +66,19 @@ class OpenGLTest(TestCase):
                 R(7, 0)])
 
     def test_single_component_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "GL_RED+GL_UNSIGNED_BYTE",
             native = None,
             memory_le = [R(7, 0)],
             memory_be = [R(7, 0)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "GL_GREEN+GL_UNSIGNED_BYTE",
             native = None,
             memory_le = [G(7, 0)],
             memory_be = [G(7, 0)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "GL_BLUE+GL_UNSIGNED_BYTE",
             native = None,
             memory_le = [B(7, 0)],
@@ -86,6 +87,7 @@ class OpenGLTest(TestCase):
     def test_integer_formats(self):
         self.assertFormatMatches(
             format_str = "GL_RG_INTEGER+GL_UNSIGNED_BYTE",
+            data_type = "UINT",
             native = None,
             memory_le = [R(7, 0), G(7, 0)],
             memory_be = [R(7, 0), G(7, 0)])

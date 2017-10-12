@@ -22,40 +22,40 @@ from .pfgtest import TestCase, R, G, B, A, X, C, Cn
 
 class QtTest(TestCase):
     def test_packed_formats_with_total_size(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "QImage::Format_ARGB32",
             native = A(7, 0) + R(7, 0) + G(7, 0) + B(7, 0),
             memory_le = [B(7, 0), G(7, 0), R(7, 0), A(7, 0)],
             memory_be = [A(7, 0), R(7, 0), G(7, 0), B(7, 0)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "QImage::Format_RGB32",
             native = X(7, 0) + R(7, 0) + G(7, 0) + B(7, 0),
             memory_le = [B(7, 0), G(7, 0), R(7, 0), X(7, 0)],
             memory_be = [X(7, 0), R(7, 0), G(7, 0), B(7, 0)])
 
     def test_packed_formats_with_component_sizes(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "QImage::Format_ARGB8565_Premultiplied",
             native = A(7, 0) + R(4, 0) + G(5, 0) + B(4, 0),
             memory_le = [G(2, 0) + B(4, 0), R(4, 0) + G(5, 3), A(7, 0)],
             memory_be = [A(7, 0), R(4, 0) + G(5, 3), G(2, 0) + B(4, 0)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "QImage::Format_RGB555",
             native = X(0, 0) + R(4, 0) + G(4, 0) + B(4, 0),
             memory_le = [G(2, 0) + B(4, 0), X(0, 0) + R(4, 0) + G(4, 3)],
             memory_be = [X(0, 0) + R(4, 0) + G(4, 3), G(2, 0) + B(4, 0)])
 
     def test_array_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "QImage::Format_RGBA8888",
             native = None,
             memory_le = [R(7, 0), G(7, 0), B(7, 0), A(7, 0)],
             memory_be = [R(7, 0), G(7, 0), B(7, 0), A(7, 0)])
 
     def test_1bpp_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "QImage::Format_Mono",
             native = C(0, 0),
             memory_le = [
@@ -65,7 +65,7 @@ class QtTest(TestCase):
                 C(0, 0) + Cn(1, 0, 0) + Cn(2, 0, 0) + Cn(3, 0, 0) +
                 Cn(4, 0, 0) + Cn(5, 0, 0) + Cn(6, 0, 0) + Cn(7, 0, 0)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "QImage::Format_MonoLSB",
             native = C(0, 0),
             memory_le = [

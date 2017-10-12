@@ -22,8 +22,8 @@ from .format_description import FormatDescription
 from . import util
 import re
 
-r = "UNORM|SNORM|USCALED|SSCALED|UINT|SINT|SRGB|SFLOAT|UFLOAT"
-vk_re = re.compile("VK_FORMAT_(?P<components>.*)_(" + r + ")(?P<pack>_PACK\d+)?")
+data_types = "UNORM|SNORM|USCALED|SSCALED|UINT|SINT|SRGB|SFLOAT|UFLOAT"
+vk_re = re.compile("VK_FORMAT_(?P<components>.*)_(?P<data_type>" + data_types + ")(?P<pack>_PACK\d+)?")
 
 def gen_vk_formats(template, spec):
     return [t % s for t in template for s in spec]
@@ -39,14 +39,17 @@ def describe(format_str):
     bits = util.expand_components(components, sizes)
 
     packed = match.group("pack") is not None
+    data_type_str = match.group("data_type")
 
     if packed:
         return FormatDescription(
+            data_type = data_type_str,
             native = bits,
             memory_le = util.native_to_memory_le(bits),
             memory_be = util.native_to_memory_be(bits))
     else:
         return FormatDescription(
+            data_type = data_type_str,
             native = None,
             memory_le = util.split_bytes_le(bits, sizes[0] // 8),
             memory_be = util.split_bytes_be(bits, sizes[0] // 8))

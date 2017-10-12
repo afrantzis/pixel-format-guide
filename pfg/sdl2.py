@@ -76,6 +76,7 @@ def describe(format_str):
         components, sizes = util.parse_components_with_separate_sizes(components_str)
         bits = util.expand_components(components, sizes)
         return FormatDescription(
+                data_type = "UNORM",
                 native = None,
                 memory_le = util.split_bytes(bits),
                 memory_be = util.split_bytes(bits))
@@ -83,6 +84,7 @@ def describe(format_str):
         components, sizes = util.parse_components_with_separate_sizes(components_str + sizes_str)
         bits = util.expand_components(components, sizes)
         return FormatDescription(
+                data_type = "UNORM",
                 native = bits,
                 memory_le = util.native_to_memory_le(bits),
                 memory_be = util.native_to_memory_be(bits))

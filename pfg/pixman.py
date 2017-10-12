@@ -97,6 +97,7 @@ def describe(format_str):
         memory_be = util.native_to_memory_byte_be(bits)
 
     return FormatDescription(
+        data_type = "UNORM",
         native = bits,
         memory_le = memory_le,
         memory_be = memory_be)

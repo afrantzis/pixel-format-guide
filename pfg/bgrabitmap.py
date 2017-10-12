@@ -40,6 +40,7 @@ def describe(format_str):
     memory = util.split_bytes(bits)
 
     return FormatDescription(
+        data_type = "UNORM",
         native = None,
         memory_le = memory,
         memory_be = memory)

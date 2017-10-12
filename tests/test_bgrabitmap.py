@@ -22,13 +22,13 @@ from .pfgtest import TestCase, R, G, B, A
 
 class BGRABitmapTest(TestCase):
     def test_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "BGRABITMAP_BGRAPIXEL",
             native = None,
             memory_le = [B(7, 0), G(7, 0), R(7, 0), A(7, 0)],
             memory_be = [B(7, 0), G(7, 0), R(7, 0), A(7, 0)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "BGRABITMAP_RGBAPIXEL",
             native = None,
             memory_le = [R(7, 0), G(7, 0), B(7, 0), A(7, 0)],

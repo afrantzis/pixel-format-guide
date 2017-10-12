@@ -22,27 +22,27 @@ from .pfgtest import TestCase, R, G, B, A, X, Rn, Gn, Bn, An
 
 class SkiaTest(TestCase):
     def test_32bpp_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "kRGBA_8888_SkColorType",
             native = None,
             memory_le = [R(7, 0), G(7, 0), B(7, 0), A(7, 0)],
             memory_be = None)
 
     def test_16bpp_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "kRGB_565_SkColorType",
             native = None,
             memory_le = [G(2, 0) + B(4, 0), R(4, 0) + G(5, 3)],
             memory_be = None)
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "kARGB_4444_SkColorType",
             native = None,
             memory_le = [B(3, 0) + A(3, 0), R(3, 0) + G(3, 0)],
             memory_be = None)
 
     def test_8bpp_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "kAlpha_8_SkColorType",
             native = None,
             memory_le = [A(7, 0)],
@@ -51,6 +51,7 @@ class SkiaTest(TestCase):
     def test_float_formats(self):
         self.assertFormatMatches(
             format_str = "kRGBA_F16_SkColorType",
+            data_type = "SFLOAT",
             native = None,
             memory_le = [
                 R(7, 0), R(15, 8),

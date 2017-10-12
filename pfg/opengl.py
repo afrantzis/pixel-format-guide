@@ -25,7 +25,7 @@ import itertools
 
 opengl_re = re.compile("GL_(?P<components>\w+)\WGL_(?P<data_type>[A-Z_]+)(?P<sizes>[0-9_]+)?(?P<rev>REV)?")
 
-data_type_to_size_dict = {
+gl_data_type_to_size_dict = {
     "UNSIGNED_BYTE" : 8,
     "BYTE" : 8,
     "UNSIGNED_SHORT" : 16,
@@ -36,8 +36,23 @@ data_type_to_size_dict = {
     "FLOAT" : 32
     }
 
-def data_type_to_size(data_type):
-    return data_type_to_size_dict.get(data_type, 0)
+def gl_data_type_to_size(data_type):
+    return gl_data_type_to_size_dict.get(data_type, 0)
+
+def data_type_from_format(format_str):
+    if "FLOAT" in format_str:
+        dt = "FLOAT"
+    elif "INTEGER" in format_str:
+        dt = "INT"
+    else:
+        dt = "NORM"
+
+    if "UNSIGNED" in format_str:
+        dt = "U" + dt
+    else:
+        dt = "S" + dt
+
+    return dt
 
 def normalize_components(components_str):
     ret = components_str.replace("_INTEGER", "")
@@ -71,7 +86,7 @@ def gen_packed_formats(bits):
 
 def gen_array_formats(components):
     component = ["".join(components), "".join(components) + "_INTEGER"]
-    return ["GL_" + c + "+" + "GL_" + dt for c in component for dt in data_type_to_size_dict]
+    return ["GL_" + c + "+" + "GL_" + dt for c in component for dt in gl_data_type_to_size_dict]
 
 def describe(format_str):
     match = opengl_re.match(format_str)
@@ -89,7 +104,7 @@ def describe(format_str):
         components_str = components_str[::-1]
 
     if sizes_str is None:
-        sizes = [data_type_to_size(data_type_str)] * len(components_str)
+        sizes = [gl_data_type_to_size(data_type_str)] * len(components_str)
     else:
         sizes = [int(s) for s in sizes_str.split("_")]
 
@@ -99,11 +114,13 @@ def describe(format_str):
 
     if packed:
         return FormatDescription(
+            data_type = data_type_from_format(format_str),
             native = bits,
             memory_le = util.native_to_memory_le(bits),
             memory_be = util.native_to_memory_be(bits))
     else:
         return FormatDescription(
+            data_type = data_type_from_format(format_str),
             native = None,
             memory_le = util.split_bytes_le(bits, sizes[0] // 8),
             memory_be = util.split_bytes_be(bits, sizes[0] // 8))

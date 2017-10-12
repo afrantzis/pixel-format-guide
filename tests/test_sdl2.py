@@ -22,19 +22,19 @@ from .pfgtest import TestCase, R, G, B, A
 
 class SDL2Test(TestCase):
     def test_packed_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "SDL_PIXELFORMAT_RGB332",
             native = R(2, 0) + G(2, 0) + B(1, 0),
             memory_le = [R(2, 0) + G(2, 0) + B(1, 0)],
             memory_be = [R(2, 0) + G(2, 0) + B(1, 0)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "SDL_PIXELFORMAT_RGB565",
             native = R(4, 0) + G(5, 0) + B(4, 0),
             memory_le = [G(2, 0)+ B(4, 0), R(4, 0) + G(5, 3)],
             memory_be = [R(4, 0) + G(5, 3), G(2, 0) + B(4, 0)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "SDL_PIXELFORMAT_ARGB2101010",
             native = A(1, 0) + R(9, 0) + G(9, 0) + B(9, 0),
             memory_le = [
@@ -49,13 +49,13 @@ class SDL2Test(TestCase):
                 B(7, 0)])
 
     def test_array_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "SDL_PIXELFORMAT_RGB24",
             native = None,
             memory_le = [R(7, 0), G(7, 0), B(7, 0)],
             memory_be = [R(7, 0), G(7, 0), B(7, 0)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "SDL_PIXELFORMAT_BGRA32",
             native = None,
             memory_le = [B(7, 0), G(7, 0), R(7, 0), A(7, 0)],

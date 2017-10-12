@@ -19,7 +19,8 @@
 #   Alexandros Frantzis <alexandros.frantzis@collabora.com>
 
 class FormatDescription:
-    def __init__(self, native, memory_le, memory_be):
+    def __init__(self, data_type, native, memory_le, memory_be):
+        self.data_type = data_type
         self.native = native
         self.memory_le = memory_le
         self.memory_be = memory_be

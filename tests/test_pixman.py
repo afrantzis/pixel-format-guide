@@ -22,13 +22,13 @@ from .pfgtest import TestCase, R, G, B, A, X, Rn, Gn, Bn, An
 
 class PixmanTest(TestCase):
     def test_32bpp_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "PIXMAN_b8g8r8a8",
             native = B(7, 0) + G(7, 0) + R(7, 0) + A(7, 0),
             memory_le = [A(7, 0), R(7, 0), G(7, 0), B(7, 0)],
             memory_be = [B(7, 0), G(7, 0), R(7, 0), A(7, 0)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "PIXMAN_x2r10g10b10",
             native = X(1, 0) + R(9, 0) + G(9, 0) + B(9, 0),
             memory_le = [
@@ -43,40 +43,40 @@ class PixmanTest(TestCase):
                 B(7, 0)])
 
     def test_24bpp_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "PIXMAN_r8g8b8",
             native = R(7, 0) + G(7, 0) + B(7, 0),
             memory_le = [B(7, 0), G(7, 0), R(7, 0)],
             memory_be = [R(7, 0), G(7, 0), B(7, 0)])
 
     def test_16bpp_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "PIXMAN_r5g6b5",
             native = R(4, 0) + G(5, 0) + B(4, 0),
             memory_le = [G(2, 0) + B(4, 0), R(4, 0) + G(5, 3)],
             memory_be = [R(4, 0) + G(5, 3), G(2, 0) + B(4, 0)])
 
     def test_8bpp_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "PIXMAN_a8",
             native = A(7, 0),
             memory_le = [A(7, 0)],
             memory_be = [A(7, 0)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "PIXMAN_a2b2g2r2",
             native = A(1, 0) + B(1, 0) + G(1, 0) + R(1, 0),
             memory_le = [A(1, 0) + B(1, 0) + G(1, 0) + R(1, 0)],
             memory_be = [A(1, 0) + B(1, 0) + G(1, 0) + R(1, 0)])
 
     def test_4bpp_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "PIXMAN_a4",
             native = A(3, 0),
             memory_le = [An(1, 3, 0) + A(3, 0)],
             memory_be = [A(3, 0) + An(1, 3, 0)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "PIXMAN_a1r1g1b1",
             native = A(0, 0) + R(0, 0) + G(0, 0) + B(0, 0),
             memory_le = [
@@ -87,7 +87,7 @@ class PixmanTest(TestCase):
                 An(1, 0, 0) + Rn(1, 0, 0) + Gn(1, 0, 0) + Bn(1, 0, 0)])
 
     def test_1bpp_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "PIXMAN_a1",
             native = A(0, 0),
             memory_le = [

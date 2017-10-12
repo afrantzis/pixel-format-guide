@@ -50,6 +50,7 @@ def describe_bgr666():
         util.component_bits("G", 3, 0) + util.component_bits("R", 5, 2),
         util.component_bits("R", 1, 0) + util.component_bits("X", 5, 0)]
     return FormatDescription(
+        data_type = "UNORM",
         native = None,
         memory_le = memory,
         memory_be = memory)
@@ -112,6 +113,7 @@ def describe(format_str):
             memory = util.native_to_memory_be(bits)
 
     return FormatDescription(
+        data_type = "UNORM",
         native = None,
         memory_le = memory,
         memory_be = memory)

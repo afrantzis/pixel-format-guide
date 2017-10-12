@@ -22,64 +22,64 @@ from .pfgtest import TestCase, R, G, B, A, X
 
 class V4L2Test(TestCase):
     def test_packed_formats_le(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "V4L2_PIX_FMT_RGB332",
             native = None,
             memory_le = [R(2, 0) + G(2, 0) + B(1, 0)],
             memory_be = [R(2, 0) + G(2, 0) + B(1, 0)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "V4L2_PIX_FMT_RGB565",
             native = None,
             memory_le = [G(2, 0) + B(4, 0), R(4, 0) + G(5, 3)],
             memory_be = [G(2, 0) + B(4, 0), R(4, 0) + G(5, 3)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "V4L2_PIX_FMT_XRGB555",
             native = None,
             memory_le = [G(2, 0) + B(4, 0), X(0, 0) + R(4, 0) + G(4, 3)],
             memory_be = [G(2, 0) + B(4, 0), X(0, 0) + R(4, 0) + G(4, 3)])
 
     def test_packed_formats_be(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "V4L2_PIX_FMT_RGB565X",
             native = None,
             memory_le = [R(4, 0) + G(5, 3), G(2, 0) + B(4, 0)],
             memory_be = [R(4, 0) + G(5, 3), G(2, 0) + B(4, 0)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "V4L2_PIX_FMT_XRGB555X",
             native = None,
             memory_le = [X(0, 0) + R(4, 0) + G(4, 3), G(2, 0) + B(4, 0)],
             memory_be = [X(0, 0) + R(4, 0) + G(4, 3), G(2, 0) + B(4, 0)])
 
     def test_array_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "V4L2_PIX_FMT_BGR24",
             native = None,
             memory_le = [B(7, 0), G(7, 0), R(7, 0)],
             memory_be = [B(7, 0), G(7, 0), R(7, 0)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "V4L2_PIX_FMT_ARGB32",
             native = None,
             memory_le = [A(7, 0), R(7, 0), G(7, 0), B(7, 0)],
             memory_be = [A(7, 0), R(7, 0), G(7, 0), B(7, 0)])
 
     def test_format_exceptions(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "V4L2_PIX_FMT_ABGR32",
             native = None,
             memory_le = [B(7, 0), G(7, 0), R(7, 0), A(7, 0)],
             memory_be = [B(7, 0), G(7, 0), R(7, 0), A(7, 0)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "V4L2_PIX_FMT_XBGR32",
             native = None,
             memory_le = [B(7, 0), G(7, 0), R(7, 0), X(7, 0)],
             memory_be = [B(7, 0), G(7, 0), R(7, 0), X(7, 0)])
 
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "V4L2_PIX_FMT_BGR666",
             native = None,
             memory_le = [B(5, 0) + G(5, 4), G(3, 0) + R(5, 2), R(1, 0) + X(5, 0)],

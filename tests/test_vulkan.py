@@ -24,26 +24,28 @@ class VulkanTest(TestCase):
     def test_non_packed_formats(self):
         self.assertFormatMatches(
             format_str = "VK_FORMAT_R8G8B8A8_SRGB",
+            data_type = "SRGB",
             native = None,
             memory_le = [R(7, 0), G(7, 0), B(7, 0), A(7, 0)],
             memory_be = [R(7, 0), G(7, 0), B(7, 0), A(7, 0)])
 
     def test_non_packed_formats_with_multibyte_components(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "VK_FORMAT_R16G16_UNORM",
             native = None,
             memory_le = [R(7, 0), R(15, 8), G(7, 0), G(15, 8)],
             memory_be = [R(15, 8), R(7, 0), G(15, 8), G(7, 0)])
 
     def test_packed_formats(self):
-        self.assertFormatMatches(
+        self.assertFormatMatchesUnorm(
             format_str = "VK_FORMAT_R5G6B5_UNORM_PACK16",
             native = R(4, 0) + G(5, 0) + B(4, 0),
             memory_le = [G(2, 0)+ B(4, 0), R(4, 0) + G(5, 3)],
             memory_be = [R(4, 0) + G(5, 3), G(2, 0) + B(4, 0)])
 
         self.assertFormatMatches(
-            format_str = "VK_FORMAT_A2R10G10B10_UNORM_PACK32",
+            format_str = "VK_FORMAT_A2R10G10B10_SSCALED_PACK32",
+            data_type = "SSCALED",
             native = A(1, 0) + R(9, 0) + G(9, 0) + B(9, 0),
             memory_le = [
                 B(7, 0),
