@@ -71,6 +71,7 @@ def describe(args):
         raise InvalidArgumentError("Unknown pixel format '%s'" % args.format)
 
     print("Format:               %s" % args.format)
+    print("Component data type:  %s" % description.data_type)
     if description.native:
         print("Described as:         Native %d-bit type" % len(description.native))
         print_native("Native type:          ", description.native, args.hide_bit_indices)

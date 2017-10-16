@@ -73,6 +73,7 @@ class MainTest(unittest.TestCase):
 
         output = self.get_stdout_without_error()
 
+        self.assertIn(" " + description.data_type, output)
         self.assertIn(memory_to_str(description.memory_le), output)
         self.assertIn(memory_to_str(description.memory_be), output)
         self.assertIn("Bytes in memory", output)
@@ -83,6 +84,7 @@ class MainTest(unittest.TestCase):
 
         output = self.get_stdout_without_error()
 
+        self.assertIn(" " + description.data_type, output)
         self.assertIn(remove_subscripts(native_to_str(description.native)), output)
         self.assertIn(remove_subscripts(memory_to_str(description.memory_le)), output)
         self.assertIn(remove_subscripts(memory_to_str(description.memory_be)), output)
