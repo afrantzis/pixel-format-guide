@@ -82,7 +82,7 @@ def document(family_str):
     family = _family_module_from_name(family_str)
     return family.document() if family is not None else None
 
-def find_compatible(format_str, family_str, treat_x_as_a=False):
+def find_compatible(format_str, family_str, treat_x_as_a=False, ignore_data_types=False):
     description = describe(format_str)
     if description is None:
         return None
@@ -100,7 +100,7 @@ def find_compatible(format_str, family_str, treat_x_as_a=False):
     compatibility = FormatCompatibility()
 
     for name, fd in family_descriptions.items():
-        if description.data_type != fd.data_type:
+        if not ignore_data_types and description.data_type != fd.data_type:
             continue
 
         if description.native == fd.native and \

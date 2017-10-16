@@ -92,7 +92,9 @@ def document(args):
 
 def find_compatible(args):
     compatibility = commands.find_compatible(
-        args.format, args.family, treat_x_as_a=args.treat_x_as_a)
+        args.format, args.family,
+        treat_x_as_a=args.treat_x_as_a,
+        ignore_data_types=args.ignore_data_types)
 
     if not compatibility:
         raise InvalidArgumentError(
@@ -143,6 +145,8 @@ def main(argv):
         description="Find all formats from a family that are compatible with the given format.")
     parser_find_compatible.add_argument(
         "--treat-x-as-a", action='store_true', help="Treat X as A when comparing formats")
+    parser_find_compatible.add_argument(
+        "--ignore-data-types", action='store_true', help="Ignore data types when comparing formats")
     parser_find_compatible.add_argument("format")
     parser_find_compatible.add_argument("family")
     parser_find_compatible.set_defaults(func=find_compatible)

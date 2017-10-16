@@ -35,8 +35,10 @@ class TestCase(unittest.TestCase):
 
     def assertFindCompatibleMatches(self, format_str, family_str,
                                     everywhere, little_endian, big_endian,
-                                    treat_x_as_a=False):
-        compatibility = pfg.find_compatible(format_str, family_str, treat_x_as_a)
+                                    treat_x_as_a=False, ignore_data_types=False):
+        compatibility = pfg.find_compatible(
+            format_str, family_str, treat_x_as_a=treat_x_as_a,
+            ignore_data_types=ignore_data_types)
         # assertCountEqual checks for the existence of items regardless
         # of order (and has a misleading name...)
         self.assertCountEqual(everywhere, compatibility.everywhere)
