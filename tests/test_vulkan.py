@@ -103,5 +103,17 @@ class VulkanTest(TestCase):
             big_endian = [],
             ignore_data_types = True)
 
+        self.assertFindCompatibleMatches(
+            format_str = "GL_RGBA+GL_UNSIGNED_BYTE",
+            family_str = "vulkan",
+            everywhere = [
+                "VK_FORMAT_R8G8B8A8_UNORM",
+                "VK_FORMAT_R8G8B8A8_SRGB"],
+            little_endian = [
+                "VK_FORMAT_A8B8G8R8_UNORM_PACK32",
+                "VK_FORMAT_A8B8G8R8_SRGB_PACK32"],
+            big_endian = [],
+            treat_srgb_as_unorm = True)
+
     def test_documentation(self):
         self.assertHasDocumentationFor("vulkan")

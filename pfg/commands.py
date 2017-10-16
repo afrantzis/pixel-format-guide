@@ -70,6 +70,12 @@ def _convert_x_to_a(desc):
         memory_be = [[bit.replace('X', 'A') for bit in byte] for byte in desc.memory_be]
                     if desc.memory_be else None)
 
+def _convert_srgb_to_unorm_in_place(desc):
+    if not desc: return
+
+    if desc.data_type == "SRGB":
+        desc.data_type = "UNORM"
+
 def describe(format_str):
     for family in families:
         description = family.describe(format_str)
@@ -82,7 +88,8 @@ def document(family_str):
     family = _family_module_from_name(family_str)
     return family.document() if family is not None else None
 
-def find_compatible(format_str, family_str, treat_x_as_a=False, ignore_data_types=False):
+def find_compatible(format_str, family_str, treat_x_as_a=False,
+                    treat_srgb_as_unorm=False, ignore_data_types=False):
     description = describe(format_str)
     if description is None:
         return None
@@ -96,6 +103,11 @@ def find_compatible(format_str, family_str, treat_x_as_a=False, ignore_data_type
     if treat_x_as_a:
         description = _convert_x_to_a(description)
         family_descriptions = {f:_convert_x_to_a(d) for f,d in family_descriptions.items()}
+
+    if treat_srgb_as_unorm:
+        _convert_srgb_to_unorm_in_place(description)
+        for d in family_descriptions.values():
+            _convert_srgb_to_unorm_in_place(d)
 
     compatibility = FormatCompatibility()
 

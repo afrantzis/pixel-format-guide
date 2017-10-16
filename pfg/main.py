@@ -94,6 +94,7 @@ def find_compatible(args):
     compatibility = commands.find_compatible(
         args.format, args.family,
         treat_x_as_a=args.treat_x_as_a,
+        treat_srgb_as_unorm=args.treat_srgb_as_unorm,
         ignore_data_types=args.ignore_data_types)
 
     if not compatibility:
@@ -145,6 +146,9 @@ def main(argv):
         description="Find all formats from a family that are compatible with the given format.")
     parser_find_compatible.add_argument(
         "--treat-x-as-a", action='store_true', help="Treat X as A when comparing formats")
+    parser_find_compatible.add_argument(
+        "--treat-srgb-as-unorm", action='store_true',
+        help="Treat SRGB as UNORM when comparing formats")
     parser_find_compatible.add_argument(
         "--ignore-data-types", action='store_true', help="Ignore data types when comparing formats")
     parser_find_compatible.add_argument("format")

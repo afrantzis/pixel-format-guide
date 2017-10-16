@@ -131,5 +131,20 @@ class OpenGLTest(TestCase):
                 "GL_BGRA_INTEGER+GL_UNSIGNED_INT_8_8_8_8"],
             ignore_data_types = True)
 
+        self.assertFindCompatibleMatches(
+            format_str = "VK_FORMAT_B8G8R8A8_SRGB",
+            family_str = "opengl",
+            everywhere = [],
+            little_endian = [],
+            big_endian = [])
+
+        self.assertFindCompatibleMatches(
+            format_str = "VK_FORMAT_B8G8R8A8_SRGB",
+            family_str = "opengl",
+            everywhere = ["GL_BGRA+GL_UNSIGNED_BYTE"],
+            little_endian = ["GL_BGRA+GL_UNSIGNED_INT_8_8_8_8_REV"],
+            big_endian = ["GL_BGRA+GL_UNSIGNED_INT_8_8_8_8"],
+            treat_srgb_as_unorm = True)
+
     def test_documentation(self):
         self.assertHasDocumentationFor("opengl")

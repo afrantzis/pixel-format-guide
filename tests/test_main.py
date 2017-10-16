@@ -143,6 +143,22 @@ class MainTest(unittest.TestCase):
         for f in compatibility.big_endian:
             self.assertIn(f, output)
 
+    def test_finds_compatible_formats_when_treating_srgb_as_unorm(self):
+        pfg.main([
+            "pfg", "find-compatible", "--treat-srgb-as-unorm",
+            "VK_FORMAT_B8G8R8A8_SRGB", "wayland_drm"])
+        compatibility = pfg.find_compatible(
+            "VK_FORMAT_B8G8R8A8_SRGB", "wayland_drm", ignore_data_types=True)
+
+        output = self.get_stdout_without_error()
+
+        for f in compatibility.everywhere:
+            self.assertIn(f, output)
+        for f in compatibility.little_endian:
+            self.assertIn(f, output)
+        for f in compatibility.big_endian:
+            self.assertIn(f, output)
+
     def test_finds_compatible_formats_when_ignoring_data_type(self):
         pfg.main([
             "pfg", "find-compatible", "--ignore-data-types",
