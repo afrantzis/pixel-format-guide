@@ -96,38 +96,22 @@ class OpenGLTest(TestCase):
         self.assertFindCompatibleMatches(
             format_str = "VK_FORMAT_R5G6B5_UNORM_PACK16",
             family_str = "opengl",
-            everywhere = [
-                "GL_RGB+GL_UNSIGNED_SHORT_5_6_5",
-                "GL_RGB_INTEGER+GL_UNSIGNED_SHORT_5_6_5"],
+            everywhere = ["GL_RGB+GL_UNSIGNED_SHORT_5_6_5"],
             little_endian = [],
             big_endian = [])
 
         self.assertFindCompatibleMatches(
             format_str = "VK_FORMAT_B8G8R8A8_UNORM",
             family_str = "opengl",
-            everywhere = [
-                "GL_BGRA+GL_UNSIGNED_BYTE",
-                "GL_BGRA+GL_BYTE",
-                "GL_BGRA_INTEGER+GL_UNSIGNED_BYTE",
-                "GL_BGRA_INTEGER+GL_BYTE"],
-            little_endian = [
-                "GL_BGRA+GL_UNSIGNED_INT_8_8_8_8_REV",
-                "GL_BGRA_INTEGER+GL_UNSIGNED_INT_8_8_8_8_REV"],
-            big_endian = [
-                "GL_BGRA+GL_UNSIGNED_INT_8_8_8_8",
-                "GL_BGRA_INTEGER+GL_UNSIGNED_INT_8_8_8_8"])
+            everywhere = ["GL_BGRA+GL_UNSIGNED_BYTE"],
+            little_endian = ["GL_BGRA+GL_UNSIGNED_INT_8_8_8_8_REV"],
+            big_endian = ["GL_BGRA+GL_UNSIGNED_INT_8_8_8_8"])
 
         self.assertFindCompatibleMatches(
             format_str = "PIXMAN_x8r8g8b8",
             family_str = "opengl",
-            everywhere = [
-                "GL_BGRA+GL_UNSIGNED_INT_8_8_8_8_REV",
-                "GL_BGRA_INTEGER+GL_UNSIGNED_INT_8_8_8_8_REV"],
-            little_endian = [
-                "GL_BGRA+GL_UNSIGNED_BYTE",
-                "GL_BGRA+GL_BYTE",
-                "GL_BGRA_INTEGER+GL_UNSIGNED_BYTE",
-                "GL_BGRA_INTEGER+GL_BYTE"],
+            everywhere = ["GL_BGRA+GL_UNSIGNED_INT_8_8_8_8_REV"],
+            little_endian = ["GL_BGRA+GL_UNSIGNED_BYTE"],
             big_endian = [],
             treat_x_as_a = True)
 

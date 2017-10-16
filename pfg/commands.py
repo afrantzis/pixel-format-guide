@@ -100,6 +100,9 @@ def find_compatible(format_str, family_str, treat_x_as_a=False):
     compatibility = FormatCompatibility()
 
     for name, fd in family_descriptions.items():
+        if description.data_type != fd.data_type:
+            continue
+
         if description.native == fd.native and \
            description.memory_le == fd.memory_le and \
            description.memory_be == fd.memory_be:
