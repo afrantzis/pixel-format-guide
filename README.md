@@ -21,6 +21,7 @@ Examples of using the `describe` command:
 
     $ python3 -m pfg describe GL_RGBA+GL_UNSIGNED_INT_2_10_10_10_REV
     Format:               GL_RGBA+GL_UNSIGNED_INT_2_10_10_10_REV
+    Component data type:  UNORM
     Described as:         Native 32-bit type
     Native type:          M                                                              L
                           A₁A₀B₉B₈B₇B₆B₅B₄B₃B₂B₁B₀G₉G₈G₇G₆G₅G₄G₃G₂G₁G₀R₉R₈R₇R₆R₅R₄R₃R₂R₁R₀
@@ -31,8 +32,9 @@ Examples of using the `describe` command:
                           M              L M              L M              L M              L
                           A₁A₀B₉B₈B₇B₆B₅B₄ B₃B₂B₁B₀G₉G₈G₇G₆ G₅G₄G₃G₂G₁G₀R₉R₈ R₇R₆R₅R₄R₃R₂R₁R₀
 
-    $ python3 -m pfg describe VK_FORMAT_A2R10G10B10_UNORM_PACK32
-    Format:               VK_FORMAT_A2R10G10B10_UNORM_PACK32
+    $ python3 -m pfg describe VK_FORMAT_A2R10G10B10_SINT_PACK32
+    Format:               VK_FORMAT_A2R10G10B10_SINT_PACK32
+    Component data type:  SINT
     Described as:         Native 32-bit type
     Native type:          M                                                              L
                           A₁A₀R₉R₈R₇R₆R₅R₄R₃R₂R₁R₀G₉G₈G₇G₆G₅G₄G₃G₂G₁G₀B₉B₈B₇B₆B₅B₄B₃B₂B₁B₀
@@ -45,6 +47,7 @@ Examples of using the `describe` command:
 
     $ python3 -m pfg describe WL_DRM_FORMAT_ARGB8888
     Format:               WL_DRM_FORMAT_ARGB8888
+    Component data type:  UNORM
     Described as:         Bytes in memory
     Memory little-endian: 0                1                2                3
                           M              L M              L M              L M              L
@@ -55,6 +58,7 @@ Examples of using the `describe` command:
 
     $ python3 -m pfg describe --hide-bit-indices SDL_PIXELFORMAT_RGB565
     Format:               SDL_PIXELFORMAT_RGB565
+    Component data type:  UNORM
     Described as:         Native 16-bit type
     Native type:          M              L
                           RRRRRGGGGGGBBBBB
