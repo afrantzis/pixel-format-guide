@@ -22,7 +22,7 @@ from .format_description import FormatDescription
 from . import util
 import re
 
-drm_re = re.compile("DRM_FORMAT_(?P<components>.*)")
+drm_re = re.compile("(DRM|GBM)_FORMAT_(?P<components>.*)")
 
 drm_formats = [
     "DRM_FORMAT_C8",
@@ -84,6 +84,11 @@ def yuv_bits_to_memory(components):
     return util.split_bytes(components)
 
 def describe(format_str):
+    if format_str == "GBM_BO_FORMAT_XRGB8888":
+        format_str = "GBM_FORMAT_XRGB8888"
+    elif format_str == "GBM_BO_FORMAT_ARGB8888":
+        format_str = "GBM_FORMAT_ARGB8888"
+
     match = drm_re.match(format_str)
 
     if not match:

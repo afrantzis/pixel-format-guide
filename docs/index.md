@@ -50,7 +50,7 @@ help you understand the conventions used by the various pixel format families.
 * [BGRABitmap pixel formats](bgrabitmap.md)
 * [Cairo pixel formats](cairo.md)
 * [DirectFB pixel formats](directfb.md)
-* [DRM pixel formats](drm.md)
+* [DRM/GBM pixel formats](drm.md)
 * [OpenGL pixel formats](opengl.md)
 * [Pixman pixel formats](pixman.md)
 * [Qt pixel formats](qt.md)
