@@ -1,5 +1,10 @@
 # Wayland-drm pixel formats
 
+This page describes the formats used by the private `wl_drm` extension,
+implemented by Mesa. This extension has been superseded by the linux-dmabuf
+extension, which provides a generic buffer-exchange protocol using the [DRM
+pixel format](drm.md) descriptors.
+
 The wayland-drm pixel formats follow the scheme:
 
     WL_DRM_FORMAT_{component-format}
