@@ -1,6 +1,6 @@
 # DRM pixel formats
 
-The drm pixel formats follow the scheme:
+The DRM pixel formats follow the scheme:
 
     DRM_FORMAT_{component-format}
 
@@ -8,7 +8,15 @@ The `component-format` part specifies the order and sizes of the components.
 All the components are listed first, optionally followed by their corresponding sizes
 in bits (e.g., `RGB888`, `YUVY`).
 
-There are a few categories of drm formats:
+The GBM pixel formats follow the scheme:
+
+    GBM_FORMAT_{component-format}
+
+GBM formats have the same names, enumeration values, interpretation, and meaning
+as DRM formats; this document uses DRM names, however the descriptions equally
+apply to GBM. There are however two special cases, described below.
+
+There are a few categories of DRM formats:
 
 * RGBA formats: `DRM_FORMAT_{rgba-componenent-format}`
 
@@ -53,6 +61,21 @@ There are a few categories of drm formats:
     **Example: `DRM_FORMAT_YUYV`**
 
     Always stored as Y₀, U, Y₁, V in memory (Y₀ at lowest address, V at the highest)
+
+* GBM BO formats: `GBM_BO_FORMAT_{rgba-component-format}`
+
+    GBM specifies two 'BO formats', as aliases for the equivalent
+    `GBM_FORMAT_{rgba-component-format}` tokens. These format tokens are accepted
+    as input parameters to GBM buffer allocation entrypoints, however are never
+    returned as output from the API, e.g. via `gbm_bo_get_format`.
+
+    **`GBM_BO_FORMAT_ARGB8888`**
+
+    This is an alias for `GBM_FORMAT_ARGB8888`, and carries the same meaning.
+
+    **`GBM_BO_FORMAT_XRGB8888`**
+
+    This is an alias for `GBM_FORMAT_XRGB8888`, and carries the same meaning.
 
 * Multi-plane formats:
 
