@@ -41,7 +41,6 @@ pixman_formats = [
     "PIXMAN_a2b10g10r10",
     "PIXMAN_a8r8g8b8_sRGB",
     # 24-bit
-    "PIXMAN_a8r8g8b8",
     "PIXMAN_r8g8b8",
     "PIXMAN_b8g8r8",
     # 16-bit
