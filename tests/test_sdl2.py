@@ -61,6 +61,9 @@ class SDL2Test(TestCase):
             memory_le = [B(7, 0), G(7, 0), R(7, 0), A(7, 0)],
             memory_be = [B(7, 0), G(7, 0), R(7, 0), A(7, 0)])
 
+    def test_unknown_formats(self):
+        self.assertFormatIsUnknown("SDL_PIXELFORMAT_RGBX4444")
+
     def test_find_compatible(self):
         self.assertFindCompatibleMatches(
             format_str = "VK_FORMAT_R5G6B5_UNORM_PACK16",

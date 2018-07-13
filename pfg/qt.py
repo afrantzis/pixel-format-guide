@@ -116,6 +116,9 @@ qt_formats = {
     }
 
 def describe(format_str):
+    if not format_str.startswith("QImage::Format"):
+        return None
+
     describe_func, normalized = qt_formats.get(format_str, (None, None))
 
     if not describe_func:

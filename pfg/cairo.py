@@ -34,6 +34,9 @@ cairo_formats = [
     ]
 
 def describe(format_str):
+    if not format_str.startswith("CAIRO_FORMAT") or format_str not in formats():
+        return None
+
     match = cairo_re.match(format_str)
 
     if not match:

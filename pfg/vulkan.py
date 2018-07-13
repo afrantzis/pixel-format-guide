@@ -29,6 +29,9 @@ def gen_vk_formats(template, spec):
     return [t % s for t in template for s in spec]
 
 def describe(format_str):
+    if not format_str.startswith("VK_FORMAT") or format_str not in formats():
+        return None
+
     match = vk_re.match(format_str)
 
     if not match:

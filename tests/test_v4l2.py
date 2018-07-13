@@ -85,6 +85,9 @@ class V4L2Test(TestCase):
             memory_le = [B(5, 0) + G(5, 4), G(3, 0) + R(5, 2), R(1, 0) + X(5, 0)],
             memory_be = [B(5, 0) + G(5, 4), G(3, 0) + R(5, 2), R(1, 0) + X(5, 0)])
 
+    def test_unknown_formats(self):
+        self.assertFormatIsUnknown("V4L2_PIX_FMT_BGR565")
+
     def test_find_compatible(self):
         self.assertFindCompatibleMatches(
             format_str = "VK_FORMAT_R5G6B5_UNORM_PACK16",

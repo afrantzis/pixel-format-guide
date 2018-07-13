@@ -34,6 +34,9 @@ class BGRABitmapTest(TestCase):
             memory_le = [R(7, 0), G(7, 0), B(7, 0), A(7, 0)],
             memory_be = [R(7, 0), G(7, 0), B(7, 0), A(7, 0)])
 
+    def test_unknown_formats(self):
+        self.assertFormatIsUnknown("BGRABITMAP_RGBPIXEL")
+
     def test_find_compatible(self):
         self.assertFindCompatibleMatches(
             format_str = "VK_FORMAT_B8G8R8A8_UNORM",

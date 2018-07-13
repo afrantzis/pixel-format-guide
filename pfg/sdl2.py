@@ -63,6 +63,9 @@ def yuv_components_to_memory(components):
     return util.split_bytes(components)
 
 def describe(format_str):
+    if not format_str.startswith("SDL_PIXELFORMAT") or format_str not in formats():
+        return None
+
     match = sdl2_re.match(format_str)
 
     if not match:

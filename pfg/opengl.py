@@ -89,6 +89,9 @@ def gen_array_formats(components):
     return ["GL_" + c + "+" + "GL_" + dt for c in component for dt in gl_data_type_to_size_dict]
 
 def describe(format_str):
+    if not format_str.startswith("GL_") or format_str not in formats():
+        return None
+
     match = opengl_re.match(format_str)
 
     if not match:

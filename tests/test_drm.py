@@ -47,6 +47,9 @@ class DRMTest(TestCase):
             memory_le = [Y(7, 0), U(7, 0), Y(7, 0), V(7, 0)],
             memory_be = [Y(7, 0), U(7, 0), Y(7, 0), V(7, 0)])
 
+    def test_unknown_formats(self):
+        self.assertFormatIsUnknown("DRM_FORMAT_RGBA6666")
+
     def test_find_compatible(self):
         self.assertFindCompatibleMatches(
             format_str = "VK_FORMAT_R5G6B5_UNORM_PACK16",

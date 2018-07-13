@@ -84,6 +84,9 @@ def yuv_bits_to_memory(components):
     return util.split_bytes(components)
 
 def describe(format_str):
+    if not format_str.startswith("DRM_FORMAT") or format_str not in formats():
+        return None
+
     match = drm_re.match(format_str)
 
     if not match:

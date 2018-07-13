@@ -60,6 +60,9 @@ class SkiaTest(TestCase):
                 A(7, 0), A(15, 8)],
             memory_be = None)
 
+    def test_unknown_formats(self):
+        self.assertFormatIsUnknown("kRGBA_4444_SkColorType")
+
     def test_find_compatible(self):
         self.assertFindCompatibleMatches(
             format_str = "VK_FORMAT_R5G6B5_UNORM_PACK16",

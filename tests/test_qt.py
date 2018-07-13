@@ -75,6 +75,9 @@ class QtTest(TestCase):
                 Cn(7, 0, 0) + Cn(6, 0, 0) + Cn(5, 0, 0) + Cn(4, 0, 0) +
                 Cn(3, 0, 0) + Cn(2, 0, 0) + Cn(1, 0, 0) + C(0, 0)])
 
+    def test_unknown_formats(self):
+        self.assertFormatIsUnknown("QImage::Format_RGB565")
+
     def test_find_compatible(self):
         pass
         self.assertFindCompatibleMatches(

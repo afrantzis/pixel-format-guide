@@ -30,6 +30,9 @@ bgrabitmap_formats = [
     ]
 
 def describe(format_str):
+    if not format_str.startswith("BGRABITMAP") or format_str not in formats():
+        return None
+
     match = bgrabitmap_re.match(format_str)
     if not match:
         return None

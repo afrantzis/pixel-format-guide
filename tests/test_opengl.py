@@ -92,6 +92,9 @@ class OpenGLTest(TestCase):
             memory_le = [R(7, 0), G(7, 0)],
             memory_be = [R(7, 0), G(7, 0)])
 
+    def test_unknown_formats(self):
+        self.assertFormatIsUnknown("GL_RGBA+GL_UNSIGNED_INT_5_6_5")
+
     def test_find_compatible(self):
         self.assertFindCompatibleMatches(
             format_str = "VK_FORMAT_R5G6B5_UNORM_PACK16",

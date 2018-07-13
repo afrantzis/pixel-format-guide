@@ -80,6 +80,9 @@ pixman_formats = [
     ]
 
 def describe(format_str):
+    if not format_str.startswith("PIXMAN_") or format_str not in formats():
+        return None
+
     match = pixman_re.match(format_str)
 
     if not match:

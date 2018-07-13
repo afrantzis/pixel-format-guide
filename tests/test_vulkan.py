@@ -58,6 +58,9 @@ class VulkanTest(TestCase):
                 G(5, 0) + B(9, 8),
                 B(7, 0)])
 
+    def test_unknown_formats(self):
+        self.assertFormatIsUnknown("VK_FORMAT_A1B5G5R5_UNORM_PACK16")
+
     def test_find_compatible(self):
         self.assertFindCompatibleMatches(
             format_str = "GL_RGB+GL_UNSIGNED_SHORT_5_6_5",

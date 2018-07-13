@@ -119,6 +119,9 @@ class DirectFBTest(TestCase):
                 An(7, 0, 0) + An(6, 0, 0) + An(5, 0, 0) + An(4, 0, 0) +
                 An(3, 0, 0) + An(2, 0, 0) + An(1, 0, 0) + A(0, 0)])
 
+    def test_unknown_formats(self):
+        self.assertFormatIsUnknown("DSPF_RGBA")
+
     def test_find_compatible(self):
         self.assertFindCompatibleMatches(
             format_str = "VK_FORMAT_R5G6B5_UNORM_PACK16",

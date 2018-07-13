@@ -33,6 +33,9 @@ class TestCase(unittest.TestCase):
     def assertFormatMatchesUnorm(self, format_str, native, memory_le, memory_be):
         self.assertFormatMatches(format_str, "UNORM", native, memory_le, memory_be)
 
+    def assertFormatIsUnknown(self, format_str):
+        self.assertIsNone(pfg.describe(format_str))
+
     def assertFindCompatibleMatches(self, format_str, family_str,
                                     everywhere, little_endian, big_endian,
                                     treat_x_as_a=False,

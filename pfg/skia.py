@@ -31,11 +31,14 @@ skia_formats = {
     "kARGB_4444_SkColorType" : ("R4G4B4A4", _packed),
     "kRGBA_8888_SkColorType" : ("R8G8B8A8", _array),
     "kBGRA_8888_SkColorType" : ("B8G8R8A8", _array),
-    "kGray_8_SkColorType," : ("C8", _array),
+    "kGray_8_SkColorType" : ("C8", _array),
     "kRGBA_F16_SkColorType" : ("R16G16B16A16", _array),
     }
 
 def describe(format_str):
+    if not format_str.endswith("SkColorType"):
+        return None
+
     normalized, normalized_type = skia_formats.get(format_str, (None, None))
     if not normalized:
         return None

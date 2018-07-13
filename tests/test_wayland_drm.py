@@ -64,5 +64,8 @@ class WaylandDRMTest(TestCase):
             big_endian = [],
             treat_x_as_a = True)
 
+    def test_unknown_formats(self):
+        self.assertFormatIsUnknown("WL_DRM_FORMAT_RGBA6666")
+
     def test_documentation(self):
         self.assertHasDocumentationFor("wayland_drm")

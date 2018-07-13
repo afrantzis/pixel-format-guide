@@ -78,6 +78,9 @@ def normalize_sizes_str(components_str, sizes_str):
 
 
 def describe(format_str):
+    if not format_str.startswith("V4L2_PIX_FMT") or format_str not in formats():
+        return None
+
     # The BGR666 format is a special case
     if format_str == "V4L2_PIX_FMT_BGR666":
         return describe_bgr666()

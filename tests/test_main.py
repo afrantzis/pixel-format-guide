@@ -68,8 +68,8 @@ class MainTest(unittest.TestCase):
         self.assertIn("Native 16-bit type", output)
 
     def test_describes_format_without_native_description(self):
-        pfg.main(["pfg.py", "describe", "VK_FORMAT_R8G8A8_UNORM"])
-        description = pfg.describe("VK_FORMAT_R8G8A8_UNORM")
+        pfg.main(["pfg.py", "describe", "VK_FORMAT_R8G8B8_UNORM"])
+        description = pfg.describe("VK_FORMAT_R8G8B8_UNORM")
 
         output = self.get_stdout_without_error()
 

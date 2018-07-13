@@ -79,6 +79,9 @@ def normalize_components_sizes(components_str, sizes_str):
     return components_str, sizes_str
 
 def describe(format_str):
+    if not format_str.startswith("DSPF") or format_str not in formats():
+        return None
+
     match = directfb_re.match(format_str)
 
     if not match:
