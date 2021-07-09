@@ -12,7 +12,7 @@ Each component is immediately followed by its size in bits (e.g. `R8`). The
 
 There are broadly three categories of Vulkan formats:
 
-* Non-packed formats: `VK_FORMAT_{componenent-format}_{numeric-format}`
+* Non-packed formats: `VK_FORMAT_{component-format}_{numeric-format}`
     
     The `component-format` specifies the order and sizes of the components in
     memory, with the leftmost component stored at the lowest address and the
