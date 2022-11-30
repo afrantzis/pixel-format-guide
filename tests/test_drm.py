@@ -40,6 +40,12 @@ class DRMTest(TestCase):
             memory_le = [G(7, 0), G(15, 8), R(7, 0), R(15, 8)],
             memory_be = [G(7, 0), G(15, 8), R(7, 0), R(15, 8)])
 
+        self.assertFormatMatchesUnorm(
+            format_str = "DRM_FORMAT_ABGR16161616",
+            native = None,
+            memory_le = [R(7, 0), R(15, 8), G(7, 0), G(15, 8), B(7, 0), B(15, 8), A(7, 0), A(15, 8)],
+            memory_be = [R(7, 0), R(15, 8), G(7, 0), G(15, 8), B(7, 0), B(15, 8), A(7, 0), A(15, 8)])
+
     def test_yuv_packed_formats(self):
         self.assertFormatMatchesUnorm(
             format_str = "DRM_FORMAT_YUYV",
@@ -72,6 +78,13 @@ class DRMTest(TestCase):
             little_endian = [],
             big_endian = [],
             treat_x_as_a = True)
+
+        self.assertFindCompatibleMatches(
+            format_str = "VK_FORMAT_R16G16B16A16_UNORM",
+            family_str = "drm",
+            everywhere = [],
+            little_endian = ["DRM_FORMAT_ABGR16161616"],
+            big_endian = [])
 
     def test_documentation(self):
         self.assertHasDocumentationFor("drm")
